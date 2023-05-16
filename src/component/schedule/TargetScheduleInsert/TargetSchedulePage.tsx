@@ -1,8 +1,6 @@
-import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
-import { PageLink, PageTitle } from '../../../_metronic/layout/core'
-import { UsersListWrapper } from '../../../app/modules/apps/user-management/users-list/UsersList'
-import { TargetSchedule } from './TargetSchedule'
-
+import {Navigate, Outlet, Route, Routes} from 'react-router-dom'
+import {PageLink, PageTitle} from '../../../_metronic/layout/core'
+import {TargetSchedule} from './TargetSchedule'
 
 const usersBreadcrumbs: Array<PageLink> = [
   {

@@ -1,29 +1,25 @@
-import { SFTPCONNECTION_REQ} from "../actions/constants";
-import { ScoreAction } from "../actions/creatorActions";
-
+import {SFTPCONNECTION_REQ} from '../actions/constants'
+import {ScoreAction} from '../actions/creatorActions'
 
 type Result = {
-
-    state:any
+  state: any
 }
 
 const initialState: Result = {
-
-     state:[]
+  state: [],
 }
 
 const connectionSFTPreducer = (state: Result = initialState, action: ScoreAction) => {
-    switch (action.type) {
-        case SFTPCONNECTION_REQ:
-            console.log(action.payload);
-            return{
-                ...state,
-                state:action.payload
-              }
-        default:
-            return state;
-    }
-};
+  switch (action.type) {
+    case SFTPCONNECTION_REQ:
+      console.log(action.payload)
+      return {
+        ...state,
+        state: action.payload,
+      }
+    default:
+      return state
+  }
+}
 
-
-export default connectionSFTPreducer;
+export default connectionSFTPreducer

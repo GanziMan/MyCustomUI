@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {  useState } from 'react'
+import React, {useState} from 'react'
 
 type Props = {
   className: string
@@ -8,9 +8,9 @@ type Props = {
   description: string
 }
 
-const Progress: React.FC<Props> = ({ className, color, title, description }) => {
-  const [complete,setComplete] = useState<number>(0);
-  setTimeout(()=> setComplete(Math.floor(Math.random() * 12)),3000);
+const Progress: React.FC<Props> = ({className, color, title, description}) => {
+  const [complete, setComplete] = useState<number>(0)
+  setTimeout(() => setComplete(Math.floor(Math.random() * 12)), 3000)
   return (
     <div className={`card bg-light-${color} ${className}`}>
       {/* begin::Body */}
@@ -36,4 +36,4 @@ const Progress: React.FC<Props> = ({ className, color, title, description }) => 
   )
 }
 
-export { Progress }
+export {Progress}

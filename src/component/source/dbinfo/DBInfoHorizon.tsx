@@ -1,16 +1,20 @@
-import { FC, useEffect, useRef, useState } from 'react'
-import { KTSVG } from '../../../_metronic/helpers'
-import { StepperComponent } from '../../../_metronic/assets/ts/components'
-import { Formik, Form, FormikValues } from 'formik'
-import { createAccountSchemas, DBInfoInitValues, SDBInfo } from '../../../app/modules/wizards/components/CreateAccountWizardHelper'
-import { DBInfoCreate } from './DBInfoCreate'
-import { DBInfoCreateConfirm } from './DBInfoCreateConfirm'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../redux/stores'
-import { DBInfoConnectionTest } from './DBInfoConnectionTest'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { customAxios, customAxiosAirflow } from '../../../apis/utils'
+import {FC, useEffect, useRef, useState} from 'react'
+import {KTSVG} from '../../../_metronic/helpers'
+import {StepperComponent} from '../../../_metronic/assets/ts/components'
+import {Formik, Form, FormikValues} from 'formik'
+import {
+  createAccountSchemas,
+  DBInfoInitValues,
+  SDBInfo,
+} from '../../../app/modules/wizards/components/CreateAccountWizardHelper'
+import {DBInfoCreate} from './DBInfoCreate'
+import {DBInfoCreateConfirm} from './DBInfoCreateConfirm'
+import {useSelector} from 'react-redux'
+import {RootState} from '../../../redux/stores'
+import {DBInfoConnectionTest} from './DBInfoConnectionTest'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import {customAxios, customAxiosAirflow} from '../../../apis/utils'
 
 //api
 const DBInfoHorizon: FC = () => {
@@ -19,22 +23,28 @@ const DBInfoHorizon: FC = () => {
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
   const [initValues, setInitValues] = useState<SDBInfo>(DBInfoInitValues)
   const [isSubmitButton, setSubmitButton] = useState(false)
-  const [checkDisabled, setCheckDisabled] = useState(true);
-  const connection_id = useSelector((state: RootState) => state.cronreducer.connection_dbid);
-  const connection_id_message = useSelector((state: RootState) => state.cronreducer.connection_dbid_message);
-  const connection_name = useSelector((state: RootState) => state.cronreducer.connection_dbname);
-  const connection_name_message = useSelector((state: RootState) => state.cronreducer.connection_dbname_message);
-  const connection_message = useSelector((state: RootState) => state.cronreducer.connectionMessage);
-  const [connectionDisabled, setConnectionDisabled] = useState<boolean>(true);
-  const connection_type = useSelector((state: RootState) => state.connectionreducer.state.connection_type);
-  const description = useSelector((state: RootState) => state.connectionreducer.state.description);
-  const extra = useSelector((state: RootState) => state.connectionreducer.state.extra);
-  const host = useSelector((state: RootState) => state.connectionreducer.state.host);
-  const login = useSelector((state: RootState) => state.connectionreducer.state.login);
-  const password = useSelector((state: RootState) => state.connectionreducer.state.password);
-  const port = useSelector((state: RootState) => state.connectionreducer.state.port);
-  const schema = useSelector((state: RootState) => state.connectionreducer.state.schema);
-  const navigate = useNavigate();
+  const [checkDisabled, setCheckDisabled] = useState(true)
+  const connection_id = useSelector((state: RootState) => state.cronreducer.connection_dbid)
+  const connection_id_message = useSelector(
+    (state: RootState) => state.cronreducer.connection_dbid_message
+  )
+  const connection_name = useSelector((state: RootState) => state.cronreducer.connection_dbname)
+  const connection_name_message = useSelector(
+    (state: RootState) => state.cronreducer.connection_dbname_message
+  )
+  const connection_message = useSelector((state: RootState) => state.cronreducer.connectionMessage)
+  const [connectionDisabled, setConnectionDisabled] = useState<boolean>(true)
+  const connection_type = useSelector(
+    (state: RootState) => state.connectionreducer.state.connection_type
+  )
+  const description = useSelector((state: RootState) => state.connectionreducer.state.description)
+  const extra = useSelector((state: RootState) => state.connectionreducer.state.extra)
+  const host = useSelector((state: RootState) => state.connectionreducer.state.host)
+  const login = useSelector((state: RootState) => state.connectionreducer.state.login)
+  const password = useSelector((state: RootState) => state.connectionreducer.state.password)
+  const port = useSelector((state: RootState) => state.connectionreducer.state.port)
+  const schema = useSelector((state: RootState) => state.connectionreducer.state.schema)
+  const navigate = useNavigate()
 
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
@@ -49,18 +59,18 @@ const DBInfoHorizon: FC = () => {
   }
   const submitStep = (values: SDBInfo, actions: FormikValues) => {
     if (!stepper.current) {
-      return setInitValues(values);
+      return setInitValues(values)
     }
-    values.connection_id = connection_id;
-    values.connection_name = connection_name;
-    values.connection_type = connection_type;
-    values.description = description;
+    values.connection_id = connection_id
+    values.connection_name = connection_name
+    values.connection_type = connection_type
+    values.description = description
     values.extra = extra
-    values.host = host;
-    values.login = login;
-    values.password = password;
-    values.port = port;
-    values.schema = schema;
+    values.host = host
+    values.login = login
+    values.password = password
+    values.port = port
+    values.schema = schema
     setInitValues(values)
     setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1)
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex])
@@ -78,29 +88,42 @@ const DBInfoHorizon: FC = () => {
     loadStepper()
   }, [stepperRef])
   useEffect(() => {
-    if(connection_id_message === "가능" && connection_name_message==="가능" && connection_id!=='' && connection_name !=='')
-    {
-      setCheckDisabled(false);
-    }else{
-      setCheckDisabled(true);
-    }
-    if (connection_message === "Success") {
-      setConnectionDisabled(false);
+    if (
+      connection_id_message === '가능' &&
+      connection_name_message === '가능' &&
+      connection_id !== '' &&
+      connection_name !== ''
+    ) {
+      setCheckDisabled(false)
     } else {
-      setConnectionDisabled(true);
+      setCheckDisabled(true)
     }
-
+    if (connection_message === 'Success') {
+      setConnectionDisabled(false)
+    } else {
+      setConnectionDisabled(true)
+    }
   })
   const JpaSave = () => {
-    if (window.confirm("생성 하시겠습니까?")) {
-
-      customAxiosAirflow.post("post", { dags: "connections", connection_id: initValues.connection_id, conn_type: initValues.connection_type, host: initValues.host, login: initValues.login, password: initValues.password, port: initValues.port, schema: initValues.schema, description: initValues.description, extra: "{'schema': public}" })
+    if (window.confirm('생성 하시겠습니까?')) {
+      customAxiosAirflow
+        .post('post', {
+          dags: 'connections',
+          connection_id: initValues.connection_id,
+          conn_type: initValues.connection_type,
+          host: initValues.host,
+          login: initValues.login,
+          password: initValues.password,
+          port: initValues.port,
+          schema: initValues.schema,
+          description: initValues.description,
+          extra: "{'schema': public}",
+        })
         .then(function () {
-          customAxios.post("connection/save", initValues)
-            .then(function () {
-              navigate("/dashboard");
-              toast.info(`${connection_name} DB CONNECTION 등록`);
-            })
+          customAxios.post('connection/save', initValues).then(function () {
+            navigate('/dashboard')
+            toast.info(`${connection_name} DB CONNECTION 등록`)
+          })
         })
     }
   }
@@ -156,8 +179,13 @@ const DBInfoHorizon: FC = () => {
                     </button>
                   </div>
                   <div>
-                    {
-                      (stepper.current?.currentStepIndex === 2 || stepper.current?.currentStepIndex === undefined) ? <button type='submit' className='btn btn-lg btn-success me-3' disabled={checkDisabled}>
+                    {stepper.current?.currentStepIndex === 2 ||
+                    stepper.current?.currentStepIndex === undefined ? (
+                      <button
+                        type='submit'
+                        className='btn btn-lg btn-success me-3'
+                        disabled={checkDisabled}
+                      >
                         <span className='indicator-label'>
                           {'Continue'}
                           <KTSVG
@@ -165,21 +193,32 @@ const DBInfoHorizon: FC = () => {
                             className='svg-icon-3 ms-2 me-0'
                           />
                         </span>
-                      </button> : stepper.current?.currentStepIndex === 1 || stepper.current?.currentStepIndex === undefined ? <button type='submit' className='btn btn-lg btn-success me-3' disabled={connectionDisabled}>
+                      </button>
+                    ) : stepper.current?.currentStepIndex === 1 ||
+                      stepper.current?.currentStepIndex === undefined ? (
+                      <button
+                        type='submit'
+                        className='btn btn-lg btn-success me-3'
+                        disabled={connectionDisabled}
+                      >
                         <span className='indicator-label'>
                           {'Connection Test'}
                           <KTSVG
                             path='/media/icons/duotune/arrows/arr064.svg'
                             className='svg-icon-3 ms-2 me-0'
                           />
-
-                        </span>
-                      </button> : <button type='submit' className='btn btn-lg btn-success me-3' onClick={JpaSave} disabled={connectionDisabled}>
-                        <span className='indicator-label'>
-                          {'생성'}
                         </span>
                       </button>
-                    }
+                    ) : (
+                      <button
+                        type='submit'
+                        className='btn btn-lg btn-success me-3'
+                        onClick={JpaSave}
+                        disabled={connectionDisabled}
+                      >
+                        <span className='indicator-label'>{'생성'}</span>
+                      </button>
+                    )}
                   </div>
                 </div>
               </Form>
@@ -191,4 +230,4 @@ const DBInfoHorizon: FC = () => {
   )
 }
 
-export { DBInfoHorizon }
+export {DBInfoHorizon}

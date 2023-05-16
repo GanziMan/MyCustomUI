@@ -1,9 +1,9 @@
 import {useQuery} from 'react-query'
-import { isNotEmpty, QUERIES } from '../../../_metronic/helpers'
-import { useListView } from '../../../app/modules/apps/user-management/users-list/core/ListViewProvider'
-import { getUserById } from '../../../app/modules/apps/user-management/users-list/core/_requests'
+import {isNotEmpty, QUERIES} from '../../../_metronic/helpers'
+import {useListView} from '../../../app/modules/apps/user-management/users-list/core/ListViewProvider'
+import {getUserById} from '../../../app/modules/apps/user-management/users-list/core/_requests'
 
-import { SourceEditModalForm } from './SourceEditModalForm'
+import {SourceEditModalForm} from './SourceEditModalForm'
 
 const SourceEditModalFormWrapper = () => {
   const {itemIdForUpdate, setItemIdForUpdate} = useListView()

@@ -1,9 +1,9 @@
-import { useListView } from '../../core/ListViewProvider'
-import { TargetListToolbar } from './TargetListToolbar'
-import { UsersListGrouping } from './UsersListGrouping'
+import {useListView} from '../../core/ListViewProvider'
+import {TargetListToolbar} from './TargetListToolbar'
+import {UsersListGrouping} from './UsersListGrouping'
 
 const TargetListHeader = () => {
-  const { selected } = useListView()
+  const {selected} = useListView()
   return (
     <div className='card-header border-0 pt-6'>
       <h3 className='card-title align-items-start flex-column'>
@@ -21,4 +21,4 @@ const TargetListHeader = () => {
   )
 }
 
-export { TargetListHeader }
+export {TargetListHeader}

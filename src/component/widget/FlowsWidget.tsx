@@ -1,54 +1,56 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react'
-
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { RiFolderTransferLine } from "react-icons/ri"
-import { FaPlus } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
-
-import { customAxios } from '../../apis/utils'
-import { flowwidget_id_req, flowwidget_sensorid_req } from '../../redux/actions/flowWidgetActions'
-import { Dropdown1 } from '../../_metronic/partials'
-import { KTSVG } from '../../_metronic/helpers'
+import React, {useEffect, useState} from 'react'
+import {FaPlus} from 'react-icons/fa'
+import {RiFolderTransferLine} from 'react-icons/ri'
+import {useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import {KTSVG} from '../../_metronic/helpers'
+import {Dropdown1} from '../../_metronic/partials'
+import {customAxios} from '../../apis/utils'
+import {flowwidget_id_req, flowwidget_sensorid_req} from '../../redux/actions/flowWidgetActions'
 
 type Props = {
   className: string
   color: string
 }
+
 interface Flow {
-  dag_name: string;
-  schedule_interval_view: string;
-  owner: string;
-  id: string;
-  sensor_id: string;
+  dag_name: string
+  schedule_interval_view: string
+  owner: string
+  id: string
+  sensor_id: string
 }
+
 interface FlowProps {
   flowList: Flow[]
 }
-const FlowsWidget: React.FC<Props> = ({ className, color }, { flowList }: FlowProps) => {
-  const [data, setData] = useState([]);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+const FlowsWidget: React.FC<Props> = ({className, color}, {flowList}: FlowProps) => {
+  const [data, setData] = useState([])
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    customAxios.get("flow/findAll")
+    customAxios
+      .get('flow/findAll')
       .then(function (response) {
         setData(response.data.data)
-      }).catch(function (error) {
-        console.error(error);
-      });
-  }, []);
-  flowList = data;
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
+  }, [])
+  flowList = data
   const AddSource = () => {
-    navigate("/dagcreate");
+    navigate('/dagcreate')
   }
-  const FlowDetailClick = (e:any,id: string, sensor_id: string) => {
-    navigate("/flowdetails");
-    dispatch(flowwidget_id_req(id));
-    dispatch(flowwidget_sensorid_req(sensor_id));
-    e.preventDefault();
-    console.log(id,sensor_id);
+  const FlowDetailClick = (e: any, id: string, sensor_id: string) => {
+    navigate('/flowdetails')
+    dispatch(flowwidget_id_req(id))
+    dispatch(flowwidget_sensorid_req(sensor_id))
+    e.preventDefault()
+    console.log(id, sensor_id)
   }
   return (
     <div className={`card ${className}`}>
@@ -65,7 +67,7 @@ const FlowsWidget: React.FC<Props> = ({ className, color }, { flowList }: FlowPr
                 data-kt-menu-flip='top-end'
                 onClick={AddSource}
               >
-                <FaPlus size={20} color={"gray"} />
+                <FaPlus size={20} color={'gray'} />
               </button>
               <Dropdown1 />
             </div>
@@ -77,18 +79,22 @@ const FlowsWidget: React.FC<Props> = ({ className, color }, { flowList }: FlowPr
         </div>
         <div
           className='shadow-xs card-rounded mx-9 mb-9 px-6 py-9 position-relative z-index-1 bg-success bg-opacity-50 h-50'
-          style={{ marginTop: '-100px', overflowY: "scroll" }}
+          style={{marginTop: '-100px', overflowY: 'scroll'}}
         >
-          {
-            flowList && flowList.map((flow) => (
-              <div className='d-flex align-items-center mb-6' key={flow.id} >
+          {flowList &&
+            flowList.map((flow) => (
+              <div className='d-flex align-items-center mb-6' key={flow.id}>
                 <div className='symbol symbol-45px w-40px me-5'>
                   <span className='symbol-label bg-success'>
-                    <RiFolderTransferLine color="white" size={27}></RiFolderTransferLine>
+                    <RiFolderTransferLine color='white' size={27}></RiFolderTransferLine>
                   </span>
                 </div>
-                <div className='d-flex align-items-center flex-wrap w-100' onClick={(e) =>
-                  {FlowDetailClick(e,flow.id,flow.sensor_id)}}>
+                <div
+                  className='d-flex align-items-center flex-wrap w-100'
+                  onClick={(e) => {
+                    FlowDetailClick(e, flow.id, flow.sensor_id)
+                  }}
+                >
                   <div className='mb-1 pe-3 flex-grow-1'>
                     <a href='#' className='fs-5 text-gray-800 text-hover-success fw-bold'>
                       {flow.dag_name}
@@ -104,8 +110,7 @@ const FlowsWidget: React.FC<Props> = ({ className, color }, { flowList }: FlowPr
                   </div>
                 </div>
               </div>
-            ))
-          }
+            ))}
           <hr></hr>
         </div>
       </div>
@@ -113,4 +118,4 @@ const FlowsWidget: React.FC<Props> = ({ className, color }, { flowList }: FlowPr
   )
 }
 
-export { FlowsWidget }
+export {FlowsWidget}

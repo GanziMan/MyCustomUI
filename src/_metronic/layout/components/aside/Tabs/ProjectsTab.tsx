@@ -1,8 +1,14 @@
 import {Link} from 'react-router-dom'
-import {KTSVG, toAbsoluteUrl} from '../../../../helpers'
-import {Dropdown1, Search} from '../../../../partials'
+import {toAbsoluteUrl} from '../../../../helpers'
 
-const projects: ReadonlyArray<{image: string; title: string; link: string; image2:string; title2:string; link2:string;}> = [
+const projects: ReadonlyArray<{
+  image: string
+  title: string
+  link: string
+  image2: string
+  title2: string
+  link2: string
+}> = [
   {
     image: '/media/svg/brand-logos/bebo.svg',
     title: 'ALL SOURCES',
@@ -10,7 +16,7 @@ const projects: ReadonlyArray<{image: string; title: string; link: string; image
     image2: '/media/svg/brand-logos/vimeo.svg',
     title2: 'ALL TARGETS',
     link2: 'By Andres',
-  }
+  },
   // {
   //   image: '/media/svg/brand-logos/kickstarter.svg',
   //   title: 'KC Account CRM',
@@ -130,8 +136,6 @@ const ProjectsTab2 = () => {
               </div>
               {/*begin::Description*/}
             </Link>
-
-            
           ))}
         </div>
         {/*end::Items*/}

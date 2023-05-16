@@ -1,7 +1,6 @@
 import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
-import { PageLink, PageTitle } from '../../../_metronic/layout/core'
-import { SourceSchedule } from './SourceSchedule'
-
+import {PageLink, PageTitle} from '../../../_metronic/layout/core'
+import {SourceSchedule} from './SourceSchedule'
 
 const usersBreadcrumbs: Array<PageLink> = [
   {

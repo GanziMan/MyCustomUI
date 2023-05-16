@@ -1,16 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react'
-
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { FaPlus, FaFile } from 'react-icons/fa'
-import { SiMariadb, SiOracle, SiPostgresql } from 'react-icons/si'
-import { useDispatch } from 'react-redux'
-import { customAxios } from '../../apis/utils'
-import { sourcewidget_sourcename_req } from '../../redux/actions/flowWidgetActions'
-import { Dropdown1 } from '../../_metronic/partials'
-import { KTSVG } from '../../_metronic/helpers'
-
+import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
+import {FaPlus, FaFile} from 'react-icons/fa'
+import {SiMariadb, SiOracle, SiPostgresql} from 'react-icons/si'
+import {useDispatch} from 'react-redux'
+import {customAxios} from '../../apis/utils'
+import {sourcewidget_sourcename_req} from '../../redux/actions/flowWidgetActions'
+import {Dropdown1} from '../../_metronic/partials'
+import {KTSVG} from '../../_metronic/helpers'
 
 type Props = {
   className: string
@@ -18,38 +15,39 @@ type Props = {
 }
 
 interface Source {
-  source_name: string;
-  trans_type: string;
-  local_path: string;
-  dbms_type: string;
-  id: string;
+  source_name: string
+  trans_type: string
+  local_path: string
+  dbms_type: string
+  id: string
 }
 
 interface SourceProps {
   sourceList: Source[]
 }
 
-const SourcesWidget: React.FC<Props> = ({ className, color }, { sourceList }: SourceProps) => {
-  const [data, setData] = useState([]);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+const SourcesWidget: React.FC<Props> = ({className, color}, {sourceList}: SourceProps) => {
+  const [data, setData] = useState([])
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   useEffect(() => {
-      customAxios.get("source/findAll")
+    customAxios
+      .get('source/findAll')
       .then(function (response) {
         setData(response.data.data)
-      }).catch(function (error) {
-        console.error(error);
-      });
-  }, []);
-  sourceList = data;
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
+  }, [])
+  sourceList = data
   const AddSource = () => {
-    navigate("/transtypesource");
+    navigate('/transtypesource')
   }
-  const SourceDetailClick = (e:any ,source_name: string) => {
-    navigate("/sourcedetails");
-    dispatch(sourcewidget_sourcename_req(source_name));
-    e.preventDefault();
-
+  const SourceDetailClick = (e: any, source_name: string) => {
+    navigate('/sourcedetails')
+    dispatch(sourcewidget_sourcename_req(source_name))
+    e.preventDefault()
   }
   return (
     <div className={`card ${className}`}>
@@ -66,7 +64,7 @@ const SourcesWidget: React.FC<Props> = ({ className, color }, { sourceList }: So
                 data-kt-menu-flip='top-end'
                 onClick={AddSource}
               >
-                <FaPlus size={20} color={"gray"} />
+                <FaPlus size={20} color={'gray'} />
               </button>
               <Dropdown1 />
             </div>
@@ -78,25 +76,35 @@ const SourcesWidget: React.FC<Props> = ({ className, color }, { sourceList }: So
         </div>
         <div
           className='shadow-xs card-rounded mx-9 mb-9 px-6 py-9 position-relative z-index-1 bg-light-success h-25'
-          style={{ marginTop: '-100px', overflowY: "scroll" }}
+          style={{marginTop: '-100px', overflowY: 'scroll'}}
         >
-          {
-            sourceList && sourceList.map((source) => (
-
+          {sourceList &&
+            sourceList.map((source) => (
               <div key={source.id}>
                 <div className='d-flex align-items-center mb-6'>
                   <div className='symbol symbol-45px w-40px me-5'>
                     <span className='symbol-label bg-success'>
-                      {
-                        source.trans_type === "FILE" ? <FaFile
-                          className='h-50 align-self-center' color={"white"} size={15}
-                        /> : source.dbms_type === "ORACLE" ? <SiOracle className='h-50 align-self-center' color={"white"} size={20} />
-                          : source.dbms_type === "POSTGRES" ? <SiPostgresql className='h-50 align-self-center' color={"white"} size={20} />
-                            : <SiMariadb className='h-50 align-self-center' color={"white"} size={25} />
-                      }
+                      {source.trans_type === 'FILE' ? (
+                        <FaFile className='h-50 align-self-center' color={'white'} size={15} />
+                      ) : source.dbms_type === 'ORACLE' ? (
+                        <SiOracle className='h-50 align-self-center' color={'white'} size={20} />
+                      ) : source.dbms_type === 'POSTGRES' ? (
+                        <SiPostgresql
+                          className='h-50 align-self-center'
+                          color={'white'}
+                          size={20}
+                        />
+                      ) : (
+                        <SiMariadb className='h-50 align-self-center' color={'white'} size={25} />
+                      )}
                     </span>
                   </div>
-                  <div className='d-flex align-items-center flex-wrap w-100' onClick={(e) => { SourceDetailClick(e, source.source_name) }}>
+                  <div
+                    className='d-flex align-items-center flex-wrap w-100'
+                    onClick={(e) => {
+                      SourceDetailClick(e, source.source_name)
+                    }}
+                  >
                     <div className='mb-1 pe-3 flex-grow-1'>
                       <a href='#' className='fs-5 text-gray-800 text-hover-success fw-bold'>
                         {source.source_name}
@@ -113,14 +121,11 @@ const SourcesWidget: React.FC<Props> = ({ className, color }, { sourceList }: So
                 </div>
                 <hr></hr>
               </div>
-              
-            ))
-          }
-        
+            ))}
         </div>
       </div>
     </div>
   )
 }
 
-export { SourcesWidget }
+export {SourcesWidget}

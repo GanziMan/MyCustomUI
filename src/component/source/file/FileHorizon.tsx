@@ -1,35 +1,39 @@
-import  { FC, useEffect, useRef, useState } from 'react'
-import { KTSVG } from '../../../_metronic/helpers'
-import { StepperComponent } from '../../../_metronic/assets/ts/components'
-import { Formik, Form, FormikValues } from 'formik'
-import { createAccountSchemas, FileCollection, FileCollectionInitValues } from '../../../app/modules/wizards/components/CreateAccountWizardHelper'
-import { LocalPath } from './LocalPath'
-import { FileCreate } from './FileCreate'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../redux/stores'
-import { Step3 } from '../../../app/modules/wizards/components/steps/Step3'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { customAxios } from '../../../apis/utils'
+import {FC, useEffect, useRef, useState} from 'react'
+import {KTSVG} from '../../../_metronic/helpers'
+import {StepperComponent} from '../../../_metronic/assets/ts/components'
+import {Formik, Form, FormikValues} from 'formik'
+import {
+  createAccountSchemas,
+  FileCollection,
+  FileCollectionInitValues,
+} from '../../../app/modules/wizards/components/CreateAccountWizardHelper'
+import {LocalPath} from './LocalPath'
+import {FileCreate} from './FileCreate'
+import {useSelector} from 'react-redux'
+import {RootState} from '../../../redux/stores'
+import {Step3} from '../../../app/modules/wizards/components/steps/Step3'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import {customAxios} from '../../../apis/utils'
 
-  const FileHorizon: FC = () => {
+const FileHorizon: FC = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
   const [initValues, setInitValues] = useState<FileCollection>(FileCollectionInitValues)
   const [isSubmitButton, setSubmitButton] = useState(false)
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
-  const selector = useSelector((state: RootState) => state.cronreducer.message);
-  const cronvalue = useSelector((state: RootState) => state.cronreducer.cron);
-  const pathvalue = useSelector((state: RootState) => state.cronreducer.pathvalue);
-  const sourcename = useSelector((state: RootState) => state.cronreducer.sourcenamecheck);
-  const [sourceCheckDisabled, setSourceCheckDisabled] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true)
+  const selector = useSelector((state: RootState) => state.cronreducer.message)
+  const cronvalue = useSelector((state: RootState) => state.cronreducer.cron)
+  const pathvalue = useSelector((state: RootState) => state.cronreducer.pathvalue)
+  const sourcename = useSelector((state: RootState) => state.cronreducer.sourcenamecheck)
+  const [sourceCheckDisabled, setSourceCheckDisabled] = useState<boolean>(true)
+  const navigate = useNavigate()
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
   }
-  console.log(pathvalue);
+  console.log(pathvalue)
   const prevStep = () => {
     if (!stepper.current) {
       return
@@ -40,11 +44,11 @@ import { customAxios } from '../../../apis/utils'
   }
   const submitStep = (values: FileCollection, actions: FormikValues) => {
     if (!stepper.current) {
-      return setInitValues(values);
+      return setInitValues(values)
     }
-    values.schedule_interval = cronvalue;
-    values.local_path = pathvalue;
-    values.source_name = sourcename;
+    values.schedule_interval = cronvalue
+    values.local_path = pathvalue
+    values.source_name = sourcename
     setInitValues(values)
     setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1)
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex])
@@ -64,21 +68,21 @@ import { customAxios } from '../../../apis/utils'
 
   useEffect(() => {
     if (selector === '0') {
-      setButtonDisabled(false);
+      setButtonDisabled(false)
     } else {
-      setButtonDisabled(true);
+      setButtonDisabled(true)
     }
-    if (sourcename === "중복" || sourcename === "value is null") {
-      setSourceCheckDisabled(true);
+    if (sourcename === '중복' || sourcename === 'value is null') {
+      setSourceCheckDisabled(true)
     } else {
-      setSourceCheckDisabled(false);
+      setSourceCheckDisabled(false)
     }
   })
   const JpaSave = () => {
-    if (window.confirm("생성 하시겠습니까?")) {
-      customAxios.post("source/save", initValues);
-      navigate("/dashboard");
-      toast.success(`${sourcename} 소스 생성 완료`);
+    if (window.confirm('생성 하시겠습니까?')) {
+      customAxios.post('source/save', initValues)
+      navigate('/dashboard')
+      toast.success(`${sourcename} 소스 생성 완료`)
     }
   }
 
@@ -88,8 +92,8 @@ import { customAxios } from '../../../apis/utils'
         <div
           ref={stepperRef}
           className='stepper stepper-links d-flex flex-column pt-15'
-          id='kt_create_account_stepper' >
-
+          id='kt_create_account_stepper'
+        >
           <div className='stepper-nav mb-5'>
             <div className='stepper-item current' data-kt-stepper-element='nav'>
               <h3 className='stepper-title'>로컬경로</h3>
@@ -98,7 +102,6 @@ import { customAxios } from '../../../apis/utils'
             <div className='stepper-item' data-kt-stepper-element='nav'>
               <h3 className='stepper-title'>파일수집</h3>
             </div>
-
 
             <div className='stepper-item' data-kt-stepper-element='nav'>
               <h3 className='stepper-title'>입력결과</h3>
@@ -135,32 +138,47 @@ import { customAxios } from '../../../apis/utils'
                     </button>
                   </div>
                   <div>
-                    {
-                      stepper.current?.currentStepIndex === 1 || stepper.current?.currentStepIndex === undefined ? <button type='submit' className='btn btn-lg btn-success me-3' disabled={buttonDisabled}>
+                    {stepper.current?.currentStepIndex === 1 ||
+                    stepper.current?.currentStepIndex === undefined ? (
+                      <button
+                        type='submit'
+                        className='btn btn-lg btn-success me-3'
+                        disabled={buttonDisabled}
+                      >
                         <span className='indicator-label'>
                           Continue
-                        
                           <KTSVG
                             path='/media/icons/duotune/arrows/arr064.svg'
                             className='svg-icon-3 ms-2 me-0'
                           />
                         </span>
-                      </button> : stepper.current?.currentStepIndex === 2 ? <button type='submit' disabled={sourceCheckDisabled} className='btn btn-lg btn-success me-3'>
+                      </button>
+                    ) : stepper.current?.currentStepIndex === 2 ? (
+                      <button
+                        type='submit'
+                        disabled={sourceCheckDisabled}
+                        className='btn btn-lg btn-success me-3'
+                      >
                         <span className='indicator-label'>
-                        Continue
-
+                          Continue
                           <KTSVG
                             path='/media/icons/duotune/arrows/arr064.svg'
                             className='svg-icon-3 ms-2 me-0'
                           />
                         </span>
-                      </button> : <button type='submit' className='btn btn-lg btn-success me-3' onClick={JpaSave}>
+                      </button>
+                    ) : (
+                      <button
+                        type='submit'
+                        className='btn btn-lg btn-success me-3'
+                        onClick={JpaSave}
+                      >
                         <span className='indicator-label'>
                           {!isSubmitButton && 'Continue'}
                           {isSubmitButton && '생성'}
                         </span>
                       </button>
-                    }
+                    )}
                   </div>
                 </div>
               </Form>
@@ -168,10 +186,8 @@ import { customAxios } from '../../../apis/utils'
           </Formik>
         </div>
       </div>
-
     </div>
-
   )
 }
 
-export { FileHorizon }
+export {FileHorizon}

@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react'
-import { customAxiosAirflow } from '../../../../apis/utils'
+import React from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
 
@@ -9,7 +8,6 @@ type Props = {
 }
 
 const FeedsWidget2: React.FC<Props> = ({className}) => {
-
   return (
     <div className={`card ${className}`}>
       {/* begin::Body */}

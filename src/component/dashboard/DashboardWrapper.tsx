@@ -1,15 +1,13 @@
+import {useIntl} from 'react-intl'
+import {PageLink, PageTitle} from '../../_metronic/layout/core'
+import {TargetsWidget} from '../../_metronic/partials/widgets'
+import {CPUUsage} from '../monitoring/CPUUsage'
+import {ImportErrorWidget} from '../monitoring/ImportErrorWidget'
+import {Progress} from '../monitoring/Progress'
+import {FlowsWidget} from '../widget/FlowsWidget'
+import {SourcesWidget} from '../widget/SourcesWidget'
 
-import { useIntl } from 'react-intl'
-import { PageLink, PageTitle } from '../../_metronic/layout/core'
-import {
-  TargetsWidget,
-} from '../../_metronic/partials/widgets'
-import 'react-toastify/dist/ReactToastify.css';
-import { SourcesWidget } from '../widget/SourcesWidget';
-import { FlowsWidget } from '../widget/FlowsWidget';
-import { ImportErrorWidget } from '../monitoring/ImportErrorWidget';
-import { Progress } from '../monitoring/Progress';
-import { CPUUsage } from '../monitoring/CPUUsage';
+import 'react-toastify/dist/ReactToastify.css'
 
 const dashboardBreadCrumbs: Array<PageLink> = [
   {
@@ -38,9 +36,7 @@ const DashboardPage = () => {
           />
         </div>
         <div className='col-xl-8'>
-          <ImportErrorWidget
-            className='card-xl-stretch bg-light-danger mb-xl-8'
-          />
+          <ImportErrorWidget className='card-xl-stretch bg-light-danger mb-xl-8' />
         </div>
       </div>
       <div className='row gy-5 g-xl-8'>
@@ -58,14 +54,14 @@ const DashboardPage = () => {
   )
 }
 const DashboardWrapper = () => {
-  const intl = useIntl();
+  const intl = useIntl()
   return (
     <>
       <PageTitle breadcrumbs={dashboardBreadCrumbs}>
-        {intl.formatMessage({ id: 'MENU.DASHBOARD' })}
+        {intl.formatMessage({id: 'MENU.DASHBOARD'})}
       </PageTitle>
       <DashboardPage />
     </>
   )
 }
-export { DashboardWrapper }
+export {DashboardWrapper}

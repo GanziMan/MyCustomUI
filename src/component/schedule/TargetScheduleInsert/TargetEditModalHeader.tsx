@@ -1,5 +1,5 @@
-import { KTSVG } from '../../../_metronic/helpers'
-import { useListView } from '../../../app/modules/apps/user-management/users-list/core/ListViewProvider'
+import {KTSVG} from '../../../_metronic/helpers'
+import {useListView} from '../../../app/modules/apps/user-management/users-list/core/ListViewProvider'
 
 const TargetEditModalHeader = () => {
   const {setItemIdForUpdate} = useListView()

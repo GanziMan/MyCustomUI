@@ -31,26 +31,25 @@ const StatisticsWidget5: React.FC<Props> = ({
         <div className={`text-${titleColor} fw-bold fs-2 mb-2 mt-5`}>{title}</div>
 
         <div className={`fw-semibold text-${descriptionColor}`}>{description}</div>
-        
       </div>
       <div className='d-flex align-items-center bg-light-warning rounded p-5 mb-7'>
-          {/* begin::Icon */}
-          <span className='svg-icon svg-icon-warning me-5'>
-            <KTSVG path='/media/icons/duotune/abstract/abs027.svg' className='svg-icon-1' />
-          </span>
-          {/* end::Icon */}
-          {/* begin::Title */}
-          <div className='flex-grow-1 me-2'>
-            <a href='#' className='fw-bold text-gray-800 text-hover-primary fs-6'>
-              Group lunch celebration
-            </a>
-            <span className='text-muted fw-semibold d-block'>Due in 2 Days</span>
-          </div>
-          {/* end::Title */}
-          {/* begin::Lable */}
-          <span className='fw-bold text-warning py-1'>+28%</span>
-          {/* end::Lable */}
+        {/* begin::Icon */}
+        <span className='svg-icon svg-icon-warning me-5'>
+          <KTSVG path='/media/icons/duotune/abstract/abs027.svg' className='svg-icon-1' />
+        </span>
+        {/* end::Icon */}
+        {/* begin::Title */}
+        <div className='flex-grow-1 me-2'>
+          <a href='#' className='fw-bold text-gray-800 text-hover-primary fs-6'>
+            Group lunch celebration
+          </a>
+          <span className='text-muted fw-semibold d-block'>Due in 2 Days</span>
         </div>
+        {/* end::Title */}
+        {/* begin::Lable */}
+        <span className='fw-bold text-warning py-1'>+28%</span>
+        {/* end::Lable */}
+      </div>
     </a>
   )
 }

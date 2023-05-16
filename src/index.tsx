@@ -18,14 +18,14 @@ import './_metronic/assets/sass/style.react.scss'
 import {AppRoutes} from './app/routing/AppRoutes'
 import {AuthProvider, setupAxios} from './app/modules/auth'
 import {ThemeModeProvider} from './_metronic/partials/layout/theme-mode/ThemeModeProvider'
-import { Provider } from 'react-redux'
-import { applyMiddleware, createStore } from 'redux'
+import {Provider} from 'react-redux'
+import {applyMiddleware, createStore} from 'redux'
 
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './redux/sagas/saga'
 import rootReducer from './redux/stores/index'
 import persistStore from 'redux-persist/es/persistStore'
-import { PersistGate } from 'redux-persist/integration/react'
+import {PersistGate} from 'redux-persist/integration/react'
 
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
@@ -42,27 +42,27 @@ setupAxios(axios)
 Chart.register(...registerables)
 const queryClient = new QueryClient()
 const container = document.getElementById('root')
-const sagaMiddleware = createSagaMiddleware();
-const store =createStore(rootReducer,applyMiddleware(sagaMiddleware));
-const persistor = persistStore(store);
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+const persistor = persistStore(store)
 
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga)
 
 if (container) {
   createRoot(container).render(
-  <Provider store={store}>
-    <PersistGate persistor={persistor}>
-    <QueryClientProvider client={queryClient}>
-      <MetronicI18nProvider>
-        <ThemeModeProvider>
-          <AuthProvider>
-            <AppRoutes />
-          </AuthProvider>
-        </ThemeModeProvider>
-      </MetronicI18nProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider> 
-    </PersistGate>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          <MetronicI18nProvider>
+            <ThemeModeProvider>
+              <AuthProvider>
+                <AppRoutes />
+              </AuthProvider>
+            </ThemeModeProvider>
+          </MetronicI18nProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </PersistGate>
     </Provider>
   )
 }

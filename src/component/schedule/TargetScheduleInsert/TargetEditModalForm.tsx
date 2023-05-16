@@ -1,15 +1,21 @@
-import {FC, useEffect, useState} from 'react'
-import * as Yup from 'yup'
-import {useFormik} from 'formik'
 import clsx from 'clsx'
-import { initialUser, User } from '../../../app/modules/apps/user-management/users-list/core/_models'
-import { getLayout, ILayout } from '../../../_metronic/layout/core'
-import { useQueryResponse } from '../../../app/modules/apps/user-management/users-list/core/QueryResponseProvider'
-import { IProfileDetails, profileDetailsInitValues as initialValues } from '../../../app/modules/accounts/components/settings/SettingsModel'
-import { createUser, updateUser } from '../../../app/modules/apps/user-management/users-list/core/_requests'
-import { useListView } from '../../../app/modules/apps/user-management/users-list/core/ListViewProvider'
-import { UsersListLoading } from '../../../app/modules/apps/user-management/users-list/components/loading/UsersListLoading'
-import { isNotEmpty, toAbsoluteUrl } from '../../../_metronic/helpers'
+import {useFormik} from 'formik'
+import {FC, useState} from 'react'
+import * as Yup from 'yup'
+import {isNotEmpty, toAbsoluteUrl} from '../../../_metronic/helpers'
+import {ILayout, getLayout} from '../../../_metronic/layout/core'
+import {
+  IProfileDetails,
+  profileDetailsInitValues as initialValues,
+} from '../../../app/modules/accounts/components/settings/SettingsModel'
+import {UsersListLoading} from '../../../app/modules/apps/user-management/users-list/components/loading/UsersListLoading'
+import {useListView} from '../../../app/modules/apps/user-management/users-list/core/ListViewProvider'
+import {useQueryResponse} from '../../../app/modules/apps/user-management/users-list/core/QueryResponseProvider'
+import {User, initialUser} from '../../../app/modules/apps/user-management/users-list/core/_models'
+import {
+  createUser,
+  updateUser,
+} from '../../../app/modules/apps/user-management/users-list/core/_requests'
 
 type Props = {
   isUserLoading: boolean
@@ -18,17 +24,17 @@ type Props = {
 
 const editTargetSchema = Yup.object().shape({
   sourceName: Yup.string()
-  .min(3, 'Minimum 3 symbols')
-  .max(50, 'Maximum 50 symbols')
-  .required('sourceName is required'),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('sourceName is required'),
   collectionCycle: Yup.string()
-  .min(3, 'Minimum 3 symbols')
-  .max(50, 'Maximum 50 symbols')
-  .required('collectionCycle is required'),
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('collectionCycle is required'),
   dataDir: Yup.string()
-  .min(3, 'Minimum 3 symbols')
-  .max(50, 'Maximum 50 symbols')
-  .required('dataDir is required'),    
+    .min(3, 'Minimum 3 symbols')
+    .max(50, 'Maximum 50 symbols')
+    .required('dataDir is required'),
 })
 
 const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
@@ -38,8 +44,8 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
   const [userForEdit] = useState<User>({
     ...user,
     sourceName: user.sourceName || initialUser.sourceName,
-    dataDir:user.dataDir || initialUser.dataDir,
-    collectionCycle:user.collectionCycle || initialUser.collectionCycle,
+    dataDir: user.dataDir || initialUser.dataDir,
+    collectionCycle: user.collectionCycle || initialUser.collectionCycle,
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -70,21 +76,18 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
         cancel(true)
       }
     },
-  });
-  const [config, setConfig] = useState<ILayout>(getLayout());
+  })
+  const [config, setConfig] = useState<ILayout>(getLayout())
   const updateData = (fieldsToUpdate: Partial<ILayout>) => {
     const updatedData = {...config, ...fieldsToUpdate}
     setConfig(updatedData)
   }
-  
-  const [data, setData] = useState<IProfileDetails>(initialValues);
-    const updateDataCheckbox = (fieldsToUpdate: Partial<IProfileDetails>): void => {
+
+  const [data, setData] = useState<IProfileDetails>(initialValues)
+  const updateDataCheckbox = (fieldsToUpdate: Partial<IProfileDetails>): void => {
     const updatedData = Object.assign(data, fieldsToUpdate)
     setData(updatedData)
   }
-
-
-
 
   // axios 통신으로 받아온 데이터가 존재한다면 액션을 dispatch한다!
   return (
@@ -104,7 +107,7 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
           {/* begin::Input group */}
           <div className='fv-row mb-7'>
             {/* begin::Label */}
-        
+
             {/* end::Label */}
 
             {/* begin::Image input */}
@@ -118,10 +121,10 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                 className='image-input-wrapper w-125px h-125px'
                 style={{backgroundImage: `url('${userAvatarImg}')`}}
               ></div> */}
-              {/* end::Preview existing avatar */}
+            {/* end::Preview existing avatar */}
 
-              {/* begin::Label */}
-              {/* <label
+            {/* begin::Label */}
+            {/* <label
               className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
               data-kt-image-input-action='change'
               data-bs-toggle='tooltip'
@@ -132,10 +135,10 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
               <input type='file' name='avatar' accept='.png, .jpg, .jpeg' />
               <input type='hidden' name='avatar_remove' />
             </label> */}
-              {/* end::Label */}
+            {/* end::Label */}
 
-              {/* begin::Cancel */}
-              {/* <span
+            {/* begin::Cancel */}
+            {/* <span
               className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
               data-kt-image-input-action='cancel'
               data-bs-toggle='tooltip'
@@ -143,10 +146,10 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             >
               <i className='bi bi-x fs-2'></i>
             </span> */}
-              {/* end::Cancel */}
+            {/* end::Cancel */}
 
-              {/* begin::Remove */}
-              {/* <span
+            {/* begin::Remove */}
+            {/* <span
               className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
               data-kt-image-input-action='remove'
               data-bs-toggle='tooltip'
@@ -154,13 +157,13 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             >
               <i className='bi bi-x fs-2'></i>
             </span> */}
-              {/* end::Remove */}
-            </div>
-            {/* end::Image input */}
+            {/* end::Remove */}
+          </div>
+          {/* end::Image input */}
 
-            {/* begin::Hint */}
-            {/* <div className='form-text'>Allowed file types: png, jpg, jpeg.</div> */}
-            {/* end::Hint */}
+          {/* begin::Hint */}
+          {/* <div className='form-text'>Allowed file types: png, jpg, jpeg.</div> */}
+          {/* end::Hint */}
           {/* </div> */}
           {/* end::Input group */}
 
@@ -201,21 +204,21 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             {/* end::Label */}
             {/* begin::Input */}
             <select
-                      className='form-select form-select-solid'
-                      name='layout-builder[layout][header][width]'
-                      value={config.header.width}
-                      onChange={(e) =>
-                        updateData({
-                          header: {
-                            ...config.header,
-                            width: e.target.value as 'fixed' | 'fluid',
-                          },
-                        })
-                      }
-                    >
-                      <option value='Data'>정형 데이터</option>
-                      <option value='nData'>비정형 데이터</option>
-                    </select>
+              className='form-select form-select-solid'
+              name='layout-builder[layout][header][width]'
+              value={config.header.width}
+              onChange={(e) =>
+                updateData({
+                  header: {
+                    ...config.header,
+                    width: e.target.value as 'fixed' | 'fluid',
+                  },
+                })
+              }
+            >
+              <option value='Data'>정형 데이터</option>
+              <option value='nData'>비정형 데이터</option>
+            </select>
             {/* end::Input */}
           </div>
           <div className='fv-row mb-7'>
@@ -278,66 +281,66 @@ const TargetEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             )}
           </div>
           <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>추가 기능</label>
+            <label className='col-lg-4 col-form-label fw-bold fs-6'>추가 기능</label>
 
-              <div className='col-lg-8 fv-row'>
-                <div className='d-flex align-items-center mt-3'>
-                  <label className='form-check form-check-inline form-check-solid me-5'>
-                    <input
-                      className='form-check-input'
-                      name='communication[]'
-                      type='checkbox'
-                      defaultChecked={data.communications?.email}
-                      onChange={() => {
-                        updateDataCheckbox({
-                          communications: {
-                            email: !data.communications?.email,
-                            phone: data.communications?.phone,
-                          },
-                        })
-                      }}
-                    />
-                    <span className='fw-bold ps-2 fs-7'>수집 즉시 전송</span>
-                  </label>
+            <div className='col-lg-8 fv-row'>
+              <div className='d-flex align-items-center mt-3'>
+                <label className='form-check form-check-inline form-check-solid me-5'>
+                  <input
+                    className='form-check-input'
+                    name='communication[]'
+                    type='checkbox'
+                    defaultChecked={data.communications?.email}
+                    onChange={() => {
+                      updateDataCheckbox({
+                        communications: {
+                          email: !data.communications?.email,
+                          phone: data.communications?.phone,
+                        },
+                      })
+                    }}
+                  />
+                  <span className='fw-bold ps-2 fs-7'>수집 즉시 전송</span>
+                </label>
 
-                  <label className='form-check form-check-inline form-check-solid'>
-                    <input
-                      className='form-check-input'
-                      name='communication[]'
-                      type='checkbox'
-                      defaultChecked={data.communications?.phone}
-                      onChange={() => {
-                        updateDataCheckbox({
-                          communications: {
-                            email: data.communications?.email,
-                            phone: !data.communications?.phone,
-                          },
-                        })
-                      }}
-                    />
-                    <span className='fw-bold ps-2 fs-7'>확인</span>
-                  </label>
+                <label className='form-check form-check-inline form-check-solid'>
+                  <input
+                    className='form-check-input'
+                    name='communication[]'
+                    type='checkbox'
+                    defaultChecked={data.communications?.phone}
+                    onChange={() => {
+                      updateDataCheckbox({
+                        communications: {
+                          email: data.communications?.email,
+                          phone: !data.communications?.phone,
+                        },
+                      })
+                    }}
+                  />
+                  <span className='fw-bold ps-2 fs-7'>확인</span>
+                </label>
 
-                  <label className='form-check form-check-inline form-check-solid'>
-                    <input
-                      className='form-check-input'
-                      name='communication[]'
-                      type='checkbox'
-                      defaultChecked={data.communications?.phone}
-                      onChange={() => {
-                        updateDataCheckbox({
-                          communications: {
-                            email: data.communications?.email,
-                            phone: !data.communications?.phone,
-                          },
-                        })
-                      }}
-                    />
-                    <span className='fw-bold ps-2 fs-7'>파일 이름 변경</span>
-                  </label>
-                </div>
+                <label className='form-check form-check-inline form-check-solid'>
+                  <input
+                    className='form-check-input'
+                    name='communication[]'
+                    type='checkbox'
+                    defaultChecked={data.communications?.phone}
+                    onChange={() => {
+                      updateDataCheckbox({
+                        communications: {
+                          email: data.communications?.email,
+                          phone: !data.communications?.phone,
+                        },
+                      })
+                    }}
+                  />
+                  <span className='fw-bold ps-2 fs-7'>파일 이름 변경</span>
+                </label>
               </div>
             </div>
+          </div>
           {/* <div className='mb-7'>
             <label className='required fw-bold fs-6 mb-5'>Role</label>
            <div className='d-flex fv-row'>

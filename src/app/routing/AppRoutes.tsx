@@ -6,11 +6,11 @@
  */
 
 import {FC} from 'react'
-import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
-import {PrivateRoutes} from './PrivateRoutes'
-import {ErrorsPage} from '../modules/errors/ErrorsPage'
-import {Logout, useAuth} from '../modules/auth'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import {App} from '../App'
+import {Logout, useAuth} from '../modules/auth'
+import {ErrorsPage} from '../modules/errors/ErrorsPage'
+import {PrivateRoutes} from './PrivateRoutes'
 
 /**
  * Base URL of the website.

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {FC} from 'react'
+import {FC} from 'react'
 import {Card1} from '../../../../../_metronic/partials/content/cards/Card1'
 
 const Drawer: FC = () => {

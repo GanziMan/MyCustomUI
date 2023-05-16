@@ -1,7 +1,6 @@
 import {useEffect} from 'react'
-import { TargetEditModalFormWrapper } from './TargetEditModalFormWrapper'
-import { TargetEditModalHeader } from './TargetEditModalHeader'
-
+import {TargetEditModalFormWrapper} from './TargetEditModalFormWrapper'
+import {TargetEditModalHeader} from './TargetEditModalHeader'
 
 const TargetInsertModal = () => {
   useEffect(() => {
@@ -27,7 +26,7 @@ const TargetInsertModal = () => {
             <TargetEditModalHeader />
             {/* begin::Modal body */}
             <div className='modal-body scroll-y mx-5 mx-xl-15 my-7'>
-            <TargetEditModalFormWrapper/>
+              <TargetEditModalFormWrapper />
             </div>
             {/* end::Modal body */}
           </div>

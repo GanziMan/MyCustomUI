@@ -1,13 +1,13 @@
-import {FC, useState, createContext, useContext, useMemo} from 'react'
+import {FC, createContext, useContext, useMemo, useState} from 'react'
 import {
   ID,
-  calculatedGroupingIsDisabled,
-  calculateIsAllDataSelected,
-  groupingOnSelect,
-  initialListView,
   ListViewContextProps,
-  groupingOnSelectAll,
   WithChildren,
+  calculateIsAllDataSelected,
+  calculatedGroupingIsDisabled,
+  groupingOnSelect,
+  groupingOnSelectAll,
+  initialListView,
 } from '../../../../../../_metronic/helpers'
 import {useQueryResponse, useQueryResponseData} from './QueryResponseProvider'
 

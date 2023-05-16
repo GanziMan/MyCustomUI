@@ -1,17 +1,21 @@
-import { FC, useEffect, useRef, useState } from 'react'
-import { KTSVG } from '../../../_metronic/helpers'
-import { StepperComponent } from '../../../_metronic/assets/ts/components'
-import { Formik, Form, FormikValues } from 'formik'
-import { createAccountSchemas } from '../../../app/modules/wizards/components/CreateAccountWizardHelper'
-import { DbConnection } from './DbConnection'
-import { DBCreate } from './DBCreate'
-import { DBCreateConfirm } from './DBCreateConfirm'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../redux/stores'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { createDBSchemas, DBCollection, DBCollectionInitValues } from '../../../app/modules/wizards/components/CreateDBWizardHelper'
-import { customAxios } from '../../../apis/utils'
+import {FC, useEffect, useRef, useState} from 'react'
+import {KTSVG} from '../../../_metronic/helpers'
+import {StepperComponent} from '../../../_metronic/assets/ts/components'
+import {Formik, Form, FormikValues} from 'formik'
+import {createAccountSchemas} from '../../../app/modules/wizards/components/CreateAccountWizardHelper'
+import {DbConnection} from './DbConnection'
+import {DBCreate} from './DBCreate'
+import {DBCreateConfirm} from './DBCreateConfirm'
+import {useSelector} from 'react-redux'
+import {RootState} from '../../../redux/stores'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import {
+  createDBSchemas,
+  DBCollection,
+  DBCollectionInitValues,
+} from '../../../app/modules/wizards/components/CreateDBWizardHelper'
+import {customAxios} from '../../../apis/utils'
 
 const DBHorizon: FC = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
@@ -19,11 +23,13 @@ const DBHorizon: FC = () => {
   const [currentSchema, setCurrentSchema] = useState(createDBSchemas[0])
   const [initValues, setInitValues] = useState<DBCollection>(DBCollectionInitValues)
   const [isSubmitButton, setSubmitButton] = useState(false)
-  const cronvalue = useSelector((state: RootState) => state.cronreducer.cron);
-  const sourcename = useSelector((state: RootState) => state.cronreducer.sourcenamecheck);
-  const db_conn_id: any = useSelector((state: RootState) => state.cronreducer.source_db_connection_id);
-  const [sourceCheckDisabled, setSourceCheckDisabled] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const cronvalue = useSelector((state: RootState) => state.cronreducer.cron)
+  const sourcename = useSelector((state: RootState) => state.cronreducer.sourcenamecheck)
+  const db_conn_id: any = useSelector(
+    (state: RootState) => state.cronreducer.source_db_connection_id
+  )
+  const [sourceCheckDisabled, setSourceCheckDisabled] = useState<boolean>(true)
+  const navigate = useNavigate()
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
   }
@@ -31,7 +37,7 @@ const DBHorizon: FC = () => {
     if (!stepper.current) {
       return
     }
-    console.log(db_conn_id);
+    console.log(db_conn_id)
     setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1)
     stepper.current.goPrev()
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex - 1])
@@ -39,11 +45,11 @@ const DBHorizon: FC = () => {
 
   const submitStep = (values: DBCollection, actions: FormikValues) => {
     if (!stepper.current) {
-      return setInitValues(values);
+      return setInitValues(values)
     }
-    values.schedule_interval = cronvalue;
-    values.db_conn_id = { id: db_conn_id };
-    values.source_name = sourcename;
+    values.schedule_interval = cronvalue
+    values.db_conn_id = {id: db_conn_id}
+    values.source_name = sourcename
     setInitValues(values)
     setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1)
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex])
@@ -61,17 +67,17 @@ const DBHorizon: FC = () => {
     loadStepper()
   }, [stepperRef])
   useEffect(() => {
-    if (sourcename === "중복" || sourcename === "value is null") {
-      setSourceCheckDisabled(true);
+    if (sourcename === '중복' || sourcename === 'value is null') {
+      setSourceCheckDisabled(true)
     } else {
-      setSourceCheckDisabled(false);
+      setSourceCheckDisabled(false)
     }
   })
   const JpaSave = () => {
-    if (window.confirm("생성 하시겠습니까?")) {
-      customAxios.post("source/save", initValues)
-      navigate("/dashboard");
-      toast.info(`${sourcename} 소스 생성 완료`);
+    if (window.confirm('생성 하시겠습니까?')) {
+      customAxios.post('source/save', initValues)
+      navigate('/dashboard')
+      toast.info(`${sourcename} 소스 생성 완료`)
     }
   }
   return (
@@ -91,7 +97,6 @@ const DBHorizon: FC = () => {
               <h3 className='stepper-title'>DB 수집</h3>
             </div>
 
-
             <div className='stepper-item' data-kt-stepper-element='nav'>
               <h3 className='stepper-title'>입력결과</h3>
             </div>
@@ -100,8 +105,7 @@ const DBHorizon: FC = () => {
           <Formik validationSchema={currentSchema} initialValues={initValues} onSubmit={submitStep}>
             {() => (
               <Form className='mx-auto mw-600px w-100 pt-15 pb-10' id='kt_create_account_form'>
-               
-               <div className='current' data-kt-stepper-element='content'>
+                <div className='current' data-kt-stepper-element='content'>
                   <DbConnection />
                 </div>
                 <div data-kt-stepper-element='content'>
@@ -117,16 +121,24 @@ const DBHorizon: FC = () => {
                       onClick={prevStep}
                       type='button'
                       className='btn btn-lg btn-light-success me-3'
-                      data-kt-stepper-action='previous'>
-                      <KTSVG path='/media/icons/duotune/arrows/arr063.svg'
-                        className='svg-icon-4 me-1'/>
+                      data-kt-stepper-action='previous'
+                    >
+                      <KTSVG
+                        path='/media/icons/duotune/arrows/arr063.svg'
+                        className='svg-icon-4 me-1'
+                      />
                       Back
                     </button>
                   </div>
 
                   <div>
-                    {
-                      stepper.current?.currentStepIndex === 1 || stepper.current?.currentStepIndex === undefined ? <button type='submit' className='btn btn-lg btn-success me-3' disabled={false}>
+                    {stepper.current?.currentStepIndex === 1 ||
+                    stepper.current?.currentStepIndex === undefined ? (
+                      <button
+                        type='submit'
+                        className='btn btn-lg btn-success me-3'
+                        disabled={false}
+                      >
                         <span className='indicator-label'>
                           {!isSubmitButton && 'Continue'}
                           {isSubmitButton && '생성'}
@@ -135,7 +147,13 @@ const DBHorizon: FC = () => {
                             className='svg-icon-3 ms-2 me-0'
                           />
                         </span>
-                      </button> : stepper.current?.currentStepIndex === 2 ? <button type='submit' className='btn btn-lg btn-success me-3' disabled={sourceCheckDisabled}>
+                      </button>
+                    ) : stepper.current?.currentStepIndex === 2 ? (
+                      <button
+                        type='submit'
+                        className='btn btn-lg btn-success me-3'
+                        disabled={sourceCheckDisabled}
+                      >
                         <span className='indicator-label'>
                           {!isSubmitButton && 'Continue'}
                           {isSubmitButton && '생성'}
@@ -144,13 +162,19 @@ const DBHorizon: FC = () => {
                             className='svg-icon-3 ms-2 me-0'
                           />
                         </span>
-                      </button> : <button type='submit' className='btn btn-lg btn-success me-3' onClick={JpaSave}>
+                      </button>
+                    ) : (
+                      <button
+                        type='submit'
+                        className='btn btn-lg btn-success me-3'
+                        onClick={JpaSave}
+                      >
                         <span className='indicator-label'>
                           {!isSubmitButton && 'Continue'}
                           {isSubmitButton && '생성'}
                         </span>
                       </button>
-                    }
+                    )}
                   </div>
                 </div>
               </Form>
@@ -162,4 +186,4 @@ const DBHorizon: FC = () => {
   )
 }
 
-export { DBHorizon }
+export {DBHorizon}

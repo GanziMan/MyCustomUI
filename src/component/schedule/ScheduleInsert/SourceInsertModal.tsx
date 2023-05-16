@@ -1,13 +1,12 @@
 import {useEffect} from 'react'
-import { SourceEditModalFormWrapper } from './SourceEditModalFormWrapper'
-import { SourceEditModalHeader } from './SourceEditModalHeader'
-
+import {SourceEditModalFormWrapper} from './SourceEditModalFormWrapper'
+import {SourceEditModalHeader} from './SourceEditModalHeader'
 
 const SourceInsertModal = () => {
   useEffect(() => {
     document.body.classList.add('modal-open')
     return () => {
-    document.body.classList.remove('modal-open')
+      document.body.classList.remove('modal-open')
     }
   }, [])
   return (
@@ -26,7 +25,7 @@ const SourceInsertModal = () => {
             <SourceEditModalHeader />
             {/* begin::Modal body */}
             <div className='modal-body scroll-y mx-5 mx-xl-15 my-7'>
-            <SourceEditModalFormWrapper/>
+              <SourceEditModalFormWrapper />
             </div>
             {/* end::Modal body */}
           </div>

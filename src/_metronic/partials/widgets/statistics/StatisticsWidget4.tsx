@@ -16,8 +16,8 @@ type Props = {
 const StatisticsWidget4: React.FC<Props> = ({className, svgIcon, color, change}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
-  const [value, setValue] = useState<number[]>([10,0,0,0,0,0,0]); 
-  setTimeout(()=> setValue([Math.floor(Math.random() * 100),20,30,40,50,60,70]),1000);
+  const [value, setValue] = useState<number[]>([10, 0, 0, 0, 0, 0, 0])
+  setTimeout(() => setValue([Math.floor(Math.random() * 100), 20, 30, 40, 50, 60, 70]), 1000)
   // const [complete,setComplete] = useState<number>(0);
   // setTimeout(()=> setComplete(Math.floor(Math.random() * 100)),3000);
   const refreshChart = () => {
@@ -31,7 +31,7 @@ const StatisticsWidget4: React.FC<Props> = ({className, svgIcon, color, change})
     const lightColor = getCSSVariableValue('--kt-' + color + '-light')
     const chart = new ApexCharts(
       chartRef.current,
-      getChartOptions(height, labelColor, baseColor, lightColor,value)
+      getChartOptions(height, labelColor, baseColor, lightColor, value)
     )
     if (chart) {
       chart.render()
@@ -68,7 +68,7 @@ const StatisticsWidget4: React.FC<Props> = ({className, svgIcon, color, change})
         <div
           ref={chartRef}
           className='statistics-widget-4-chart card-rounded-bottom'
-          style={{height: "275px"}}
+          style={{height: '275px'}}
         ></div>
       </div>
       {/* end::Body */}
@@ -83,10 +83,9 @@ function getChartOptions(
   labelColor: string,
   baseColor: string,
   lightColor: string,
-  value : number[]
+  value: number[]
 ): ApexOptions {
-  
-   return {
+  return {
     series: [
       {
         name: 'Net Profit',

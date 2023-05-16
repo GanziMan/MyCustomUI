@@ -1,29 +1,36 @@
-import { LIST_DAG_REQ, LIST_DAG_RES, TEST_ASYNC_REQ, TEST_ASYNC_RES, UPDATE_DAG_REQ, POST_DAGRUN_REQ, POST_DAGRUN_RES } from "../actions/constants";
-import { ScoreAction } from "../actions/creatorActions";
-type Result = {
-  msg: string;
-  failed: string;
-  cron:string;
+import {
+  LIST_DAG_REQ,
+  LIST_DAG_RES,
+  TEST_ASYNC_REQ,
+  TEST_ASYNC_RES,
+  UPDATE_DAG_REQ,
+  POST_DAGRUN_REQ,
+  POST_DAGRUN_RES,
+} from '../actions/constants'
+import {ScoreAction} from '../actions/creatorActions'
 
-};
+type Result = {
+  msg: string
+  failed: string
+  cron: string
+}
 const initialState: Result = {
   msg: '',
   failed: '',
-  cron:'',
-
-};
+  cron: '',
+}
 
 const reducer = (state: Result = initialState, action: ScoreAction) => {
   switch (action.type) {
     case TEST_ASYNC_REQ:
       return {
         ...state,
-        state: action.payload
-      };
+        state: action.payload,
+      }
     case TEST_ASYNC_RES:
       return {
         msg: state.msg + action.payload,
-        failed: state.failed + action.payload
+        failed: state.failed + action.payload,
       }
     case LIST_DAG_REQ:
       return {
@@ -40,17 +47,16 @@ const reducer = (state: Result = initialState, action: ScoreAction) => {
 
     case POST_DAGRUN_REQ:
       return {
-        ...state
+        ...state,
       }
     case POST_DAGRUN_RES:
       return {
-        ...state
+        ...state,
       }
-   
+
     default:
-      return state;
+      return state
   }
-};
+}
 
-
-export default reducer;
+export default reducer

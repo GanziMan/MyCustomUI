@@ -35,8 +35,6 @@ const AccountHeader: React.FC = () => {
                   <a
                     href='#'
                     className='btn btn-sm btn-light-success fw-bolder ms-2 fs-8 py-1 px-3'
-                    
-                
                   >
                     Upgrade to Pro
                   </a>
