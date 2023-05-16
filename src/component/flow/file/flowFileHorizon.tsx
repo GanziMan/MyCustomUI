@@ -123,7 +123,6 @@ const FlowFileHorizon: FC = () => {
           '%2B'
         )}`
       )
-      console.log(response4.data.data.body.state)
       if (response4.data.data.body.state === 'success') {
         await customAxios.post('flow/save', initValues)
         toast.info(`${dag_name} DAG 등록 완료`)

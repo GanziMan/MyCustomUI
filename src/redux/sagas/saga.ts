@@ -58,7 +58,6 @@ function DagRunUpdate(data: any) {
   axios
     .patch(Base_URL + 'patch', json, axiosConfig)
     .then(function (response) {
-      console.log(response)
       //  dispatch
       return response.data
     })

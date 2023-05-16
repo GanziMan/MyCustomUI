@@ -1,5 +1,5 @@
-import {FC, useEffect, useRef, useState} from 'react'
 import {Form, Formik, FormikValues} from 'formik'
+import {FC, useEffect, useRef, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {toast} from 'react-toastify'
 import {StepperComponent} from '../../../_metronic/assets/ts/components'
@@ -104,9 +104,8 @@ const FlowDbhorizon: FC = () => {
           '%2B'
         )}`
       )
-      console.log(response4.data.data.body.state)
+
       if (response4.data.data.body.state === 'success') {
-        const response4 = await customAxios.post('flow/save', initValues)
         toast.info(`${dag_name} DAG 등록 완료`)
         await customAxiosAirflow.get(
           `get?dags=dags/Dag_Creater/dagRuns/${response.data.data.body.dag_run_id.replace(

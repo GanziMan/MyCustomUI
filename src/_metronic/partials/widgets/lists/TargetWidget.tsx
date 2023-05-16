@@ -1,40 +1,41 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { FaPlus } from 'react-icons/fa'
-import {  useNavigate } from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {FaPlus} from 'react-icons/fa'
+import {useNavigate} from 'react-router-dom'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
-
 
 type Props = {
   className: string
   items?: number
 }
-interface Target{
-  dag_id:string;
+interface Target {
+  dag_id: string
 }
-interface TargetProps{
-  targetList:Target[]
-} 
-const TargetWidget: React.FC<Props> = ({className, items = 6}, {targetList}:TargetProps) => {
-  const [data, setData] = useState([]);
-  const navigate = useNavigate();
+interface TargetProps {
+  targetList: Target[]
+}
+const TargetWidget: React.FC<Props> = ({className, items = 6}, {targetList}: TargetProps) => {
+  const [data, setData] = useState([])
+  const navigate = useNavigate()
   const axiosConfig = {
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     },
-    withCredentials: true 
+    withCredentials: true,
   }
-  useEffect(()=> {
-    axios.get("http://localhost:8080/manager-ui/airflow/get?dags=dags",axiosConfig)
-    .then(function (response) {
-      setData(response.data.data.body.dags);
-   }).catch(function (error) {
-     console.error(error);
-   });
-  },[]);
- 
-  targetList=data.slice(6);
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/manager-ui/airflow/get?dags=dags', axiosConfig)
+      .then(function (response) {
+        setData(response.data.data.body.dags)
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
+  }, [])
+
+  targetList = data.slice(6)
   return (
     <div className='card card-xl-stretch mb-xl-8'>
       {/* begin::Header */}
@@ -51,9 +52,11 @@ const TargetWidget: React.FC<Props> = ({className, items = 6}, {targetList}:Targ
             data-kt-menu-trigger='click'
             data-kt-menu-placement='bottom-end'
             data-kt-menu-flip='top-end'
-            onClick={()=> {navigate("/tfilehorizon")}}
+            onClick={() => {
+              navigate('/tfilehorizon')
+            }}
           >
-             <FaPlus size={20} />
+            <FaPlus size={20} />
           </button>
           <Dropdown1 />
           {/* end::Menu */}

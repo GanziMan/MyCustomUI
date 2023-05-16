@@ -1,20 +1,20 @@
+import {Form, Formik, FormikValues} from 'formik'
 import {FC, useEffect, useRef, useState} from 'react'
-import {KTSVG} from '../../../_metronic/helpers'
-import {StepperComponent} from '../../../_metronic/assets/ts/components'
-import {Formik, Form, FormikValues} from 'formik'
-import {
-  createAccountSchemas,
-  DBInfoInitValues,
-  SDBInfo,
-} from '../../../app/modules/wizards/components/CreateAccountWizardHelper'
-import {DBInfoCreate} from './DBInfoCreate'
-import {DBInfoCreateConfirm} from './DBInfoCreateConfirm'
 import {useSelector} from 'react-redux'
-import {RootState} from '../../../redux/stores'
-import {DBInfoConnectionTest} from './DBInfoConnectionTest'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
+import {StepperComponent} from '../../../_metronic/assets/ts/components'
+import {KTSVG} from '../../../_metronic/helpers'
 import {customAxios, customAxiosAirflow} from '../../../apis/utils'
+import {
+  DBInfoInitValues,
+  SDBInfo,
+  createAccountSchemas,
+} from '../../../app/modules/wizards/components/CreateAccountWizardHelper'
+import {RootState} from '../../../redux/stores'
+import {DBInfoConnectionTest} from './DBInfoConnectionTest'
+import {DBInfoCreate} from './DBInfoCreate'
+import {DBInfoCreateConfirm} from './DBInfoCreateConfirm'
 
 //api
 const DBInfoHorizon: FC = () => {
@@ -22,7 +22,6 @@ const DBInfoHorizon: FC = () => {
   const stepper = useRef<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
   const [initValues, setInitValues] = useState<SDBInfo>(DBInfoInitValues)
-  const [isSubmitButton, setSubmitButton] = useState(false)
   const [checkDisabled, setCheckDisabled] = useState(true)
   const connection_id = useSelector((state: RootState) => state.cronreducer.connection_dbid)
   const connection_id_message = useSelector(
@@ -53,7 +52,6 @@ const DBInfoHorizon: FC = () => {
     if (!stepper.current) {
       return
     }
-    setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1)
     stepper.current.goPrev()
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex - 1])
   }
@@ -72,7 +70,6 @@ const DBInfoHorizon: FC = () => {
     values.port = port
     values.schema = schema
     setInitValues(values)
-    setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1)
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex])
     if (stepper.current.currentStepIndex !== stepper.current.totatStepsNumber) {
       stepper.current.goNext()
