@@ -8,12 +8,15 @@ import {SourceModal} from '../../source/Modal'
 
 const FlowDBCreate: FC = () => {
   const dispatch = useDispatch()
-  const [sourceName, setSourceName] = useState<any>()
-  const [dagCheckMessage, setDagCheckMessage] = useState<string>('')
   const CronValue = useSelector((state: RootState) => state.cronreducer.cron)
+
+  const [sourceName, setSourceName] = useState<string>()
+  const [dagCheckMessage, setDagCheckMessage] = useState<string>('')
+
   const sourceNameChange = (e: any) => {
     setSourceName(e.target.value)
   }
+
   useEffect(() => {
     customAxios.get(`duplicateCheck?type=dag_name&value=${sourceName}`).then(function (response) {
       setDagCheckMessage(response.data.message)
@@ -24,6 +27,7 @@ const FlowDBCreate: FC = () => {
       }
     })
   })
+
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-15'>

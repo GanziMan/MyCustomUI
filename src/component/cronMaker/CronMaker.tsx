@@ -142,14 +142,12 @@ const CronMaker: React.FC<Props> = ({className}) => {
   //Hour
   const [selected, setSelected] = useState('yes')
   const handleChange = (e: any) => {
-    console.log(e.target.value)
     setSelected(e.target.value)
   }
 
   //Daily
   const [selected2, setSelected2] = useState('yes')
   const handleChange2 = (e: any) => {
-    console.log(e.target.value)
     setSelected2(e.target.value)
   }
 
@@ -158,20 +156,17 @@ const CronMaker: React.FC<Props> = ({className}) => {
   //Monthly
   const [selected4, setSelected4] = useState('yes')
   const handleChange4 = (e: any) => {
-    console.log(e.target.value)
     setSelected4(e.target.value)
   }
 
   //Yearly
   const [selected5, setSelected5] = useState('yes')
   const handleChange5 = (e: any) => {
-    console.log(e.target.value)
     setSelected5(e.target.value)
   }
 
   const Min = (data: string) => {
     customAxiosCron.post('minutes', {minutes: data}).then(function (response) {
-      console.log(response.data.data)
       setCronValue(response.data.data)
       dispatch(cronValue_REQ(response.data.data))
     })
@@ -185,7 +180,6 @@ const CronMaker: React.FC<Props> = ({className}) => {
   }
   const AndHour = (hour: string, min: string) => {
     customAxiosCron.post('hoursAndMinute', {hours: hour, minutes: min}).then(function (response) {
-      console.log(response.data.data)
       setCronValue(response.data.data)
       dispatch(cronValue_REQ(response.data.data))
     })

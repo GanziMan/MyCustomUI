@@ -15,14 +15,17 @@ import {FlowDBCreate} from './flowDBCreate'
 import {FlowDBCreateConfirm} from './flowDBCreateConfirm'
 import {FlowsourcedbCon} from './flowsourcedbCon'
 
-import {customAxios, customAxiosAirflow} from '../../../apis/utils'
+import {customAxiosAirflow} from '../../../apis/utils'
 
 const FlowDbhorizon: FC = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
+
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
   const [initValues, setInitValues] = useState<Flowdb>(FlowdbInitValues)
   const [isSubmitButton, setSubmitButton] = useState(false)
+  const [sourceCheckDisabled, setSourceCheckDisabled] = useState<boolean>(false)
+
   const cronvalue = useSelector((state: RootState) => state.cronreducer.cron)
   const sourceid: any = useSelector((state: RootState) => state.cronreducer.sourceid)
   const targetid: any = useSelector((state: RootState) => state.cronreducer.targetid)
@@ -32,7 +35,7 @@ const FlowDbhorizon: FC = () => {
   const save_mode = useSelector((state: RootState) => state.cronreducer.save_mode)
   const target_location = useSelector((state: RootState) => state.cronreducer.target_location)
   const target_conn_id = useSelector((state: RootState) => state.cronreducer.target_conn_id)
-  const [sourceCheckDisabled, setSourceCheckDisabled] = useState<boolean>(false)
+
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
   }
@@ -44,6 +47,7 @@ const FlowDbhorizon: FC = () => {
     stepper.current.goPrev()
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex - 1])
   }
+
   const submitStep = (values: Flowdb, actions: FormikValues) => {
     if (!stepper.current) {
       return setInitValues(values)
@@ -68,6 +72,7 @@ const FlowDbhorizon: FC = () => {
       actions.resetForm()
     }
   }
+
   useEffect(() => {
     if (!stepperRef.current) {
       return
@@ -92,6 +97,7 @@ const FlowDbhorizon: FC = () => {
       target_location: initValues.target_location,
     },
   }
+
   const dags = 'dags/Dag_Creater/dagRuns'
   const DagRunDB = async () => {
     try {
@@ -120,6 +126,7 @@ const FlowDbhorizon: FC = () => {
       console.log('Error >>' + err)
     }
   }
+
   useEffect(() => {
     if (dag_name === '중복') {
       setSourceCheckDisabled(true)
@@ -127,6 +134,7 @@ const FlowDbhorizon: FC = () => {
       setSourceCheckDisabled(false)
     }
   })
+
   return (
     <div className='card'>
       <div className='card-body'>

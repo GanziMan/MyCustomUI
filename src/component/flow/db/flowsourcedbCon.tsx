@@ -11,11 +11,14 @@ import {
 
 const FlowsourcedbCon: FC = () => {
   const dispatch = useDispatch()
-  const [dbConnection, setDbConnection] = useState<any>('')
-  const [dbselect, setDbSelect] = useState<any | string[]>('')
+
+  const [dbConnection, setDbConnection] = useState<string>('')
+  const [dbselect, setDbSelect] = useState<string[]>([])
+
   const dbConnectionChagnge = (e: any) => {
     setDbConnection(e.target.value)
   }
+
   useEffect(() => {
     customAxios
       .get(`source/findAll`)
@@ -27,9 +30,11 @@ const FlowsourcedbCon: FC = () => {
         console.error(error)
       })
   }, [])
+
   useEffect(() => {
     dispatch(connectionDB_REQ(dbConnection)) // DB커넥션조회에서 값 디스패치
   })
+
   return (
     <div className='w-100'>
       <div className='pb-8 pb-lg-10'>

@@ -1,8 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+
+// Libraries
 import {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
+
+// Components
 import {KTSVG} from '../../_metronic/helpers'
 import {customAxios, customAxiosAirflow} from '../../apis/utils'
 import {RootState} from '../../redux/stores'
@@ -11,6 +15,7 @@ import {FlowDetailTable} from './FlowDetailTable'
 export function FlowDetails() {
   const ID = useSelector((state: RootState) => state.flowwidgetreducer.id)
   const sensor_id = useSelector((state: RootState) => state.flowwidgetreducer.sensor_id)
+
   const [trans_type, setTransType] = useState()
   const [saveMode, setSaveMode] = useState()
   const [dataType, setDataType] = useState()
@@ -26,7 +31,7 @@ export function FlowDetails() {
   const [scheduleInterval, setScheduleInterval] = useState()
   const [scheduleIntervalView, setScheduleIntervalView] = useState()
   const [sensorID, setSensorID] = useState<string>('')
-  const [is_paused, setIs_paused] = useState<any>()
+  const [is_paused, setIs_paused] = useState<boolean>(null)
 
   useEffect(() => {
     customAxios
@@ -58,6 +63,7 @@ export function FlowDetails() {
 
   const dags = `dags/${sensorID}/dagRuns`
   const patchdags: string = `dags/${sensorID}`
+
   const DagRunFile = async () => {
     await customAxiosAirflow.patch(`patch`, {dags: patchdags, is_paused: false})
     await customAxiosAirflow.post(`post`, {dags}).then(function (response) {
@@ -75,8 +81,8 @@ export function FlowDetails() {
     if (window.confirm('정말 삭제합니까?')) {
       customAxiosAirflow
         .delete(`delete?dags=dags/${sensorID}`)
-        .then(function (response) {
-          customAxios.delete(`flow/delete?id=${id}`).then(function (response) {
+        .then(function () {
+          customAxios.delete(`flow/delete?id=${id}`).then(function () {
             navigate('/dashboard')
             toast.info('Dag 삭제 완료')
           })
@@ -91,7 +97,7 @@ export function FlowDetails() {
   const ActiveTrue = () => {
     customAxiosAirflow
       .patch('patch', {dags: `dags/${sensorID}`, is_paused: true})
-      .then(function (response) {
+      .then(function () {
         toast.info(`${sensorID} 활성화 OFF`)
       })
   }

@@ -37,7 +37,6 @@ const DBHorizon: FC = () => {
     if (!stepper.current) {
       return
     }
-    console.log(db_conn_id)
     setSubmitButton(stepper.current.currentStepIndex === stepper.current.totatStepsNumber! - 1)
     stepper.current.goPrev()
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex - 1])

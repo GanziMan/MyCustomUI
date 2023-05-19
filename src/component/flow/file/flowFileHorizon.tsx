@@ -1,8 +1,11 @@
+// Libraries
 import {Form, Formik, FormikValues} from 'formik'
 import {FC, useEffect, useRef, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
+
+// Components
 import {Loader} from '../../../Loader'
 import {StepperComponent} from '../../../_metronic/assets/ts/components'
 import {KTSVG} from '../../../_metronic/helpers'
@@ -21,12 +24,17 @@ import {FlowsourcefileCon} from './flowsourcefileCon'
 const FlowFileHorizon: FC = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
   const stepper = useRef<StepperComponent | null>(null)
+
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
   const [initValues, setInitValues] = useState<Flowfile>(FlowfileInitValues)
-  const [isSubmitButton, setSubmitButton] = useState(false)
+  const [isSubmitButton, setSubmitButton] = useState<boolean>(false)
+  const [sourceCheckDisabled, setSourceCheckDisabled] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true)
+
+  const navigate = useNavigate()
+
   const cronvalue = useSelector((state: RootState) => state.cronreducer.cron)
   const dag_name = useSelector((state: RootState) => state.cronreducer.sourcenamecheck)
-  const [sourceCheckDisabled, setSourceCheckDisabled] = useState<boolean>(true)
   const sourceid: any = useSelector((state: RootState) => state.cronreducer.sourceid)
   const targetid: any = useSelector((state: RootState) => state.cronreducer.targetid)
   const filetypelist = useSelector((state: RootState) => state.cronreducer.filetypelist)
@@ -34,14 +42,15 @@ const FlowFileHorizon: FC = () => {
   const target_conn_id = useSelector((state: RootState) => state.cronreducer.target_conn_id)
   const target_location = useSelector((state: RootState) => state.cronreducer.target_location)
   // dagcreate
+
   const trans_type = useSelector((state: RootState) => state.cronreducer.trans_type)
   const local_path = useSelector((state: RootState) => state.cronreducer.pathvalue)
   const flow_file_name = useSelector((state: RootState) => state.cronreducer.flow_file_name)
-  const navigate = useNavigate()
-  const [loading, setLoading] = useState(null)
+
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
   }
+
   const prevStep = () => {
     if (!stepper.current) {
       return
@@ -50,6 +59,7 @@ const FlowFileHorizon: FC = () => {
     stepper.current.goPrev()
     setCurrentSchema(createAccountSchemas[stepper.current.currentStepIndex - 1])
   }
+
   const submitStep = (values: Flowfile, actions: FormikValues) => {
     if (!stepper.current) {
       return setInitValues(values)
@@ -76,12 +86,14 @@ const FlowFileHorizon: FC = () => {
       actions.resetForm()
     }
   }
+
   useEffect(() => {
     if (!stepperRef.current) {
       return
     }
     loadStepper()
   }, [stepperRef])
+
   const confFile = {
     params: {
       trans_type: initValues.trans_type,
@@ -99,6 +111,7 @@ const FlowFileHorizon: FC = () => {
       privacy_on_off: initValues.privacy_on_off,
     },
   }
+
   const dags = 'dags/Dag_Creater/dagRuns'
 
   useEffect(() => {
@@ -108,10 +121,10 @@ const FlowFileHorizon: FC = () => {
       setSourceCheckDisabled(false)
     }
   })
-  console.log(dag_name)
+
   const JpaSave = async () => {
     try {
-      const response: any = await customAxiosAirflow.post(`post`, {dags, conf: confFile})
+      const response: string = await customAxiosAirflow.post(`post`, {dags, conf: confFile})
       toast.info(`${dag_name} DAG 생성 중`)
       console.log(response)
       setLoading(true)

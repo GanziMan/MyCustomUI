@@ -11,17 +11,21 @@ import {
 
 const FlowtargetCon: FC = () => {
   const dispatch = useDispatch()
-  const [dbselect, setDbSelect] = useState<any | string[]>('')
-  const [dbConnection, setDbConnection] = useState<any>('')
+
+  const [dbselect, setDbSelect] = useState<string[]>([])
+  const [dbConnection, setDbConnection] = useState<string>('')
+
   const dbConnectionChagnge = (e: any) => {
     setDbConnection(e.target.value)
   }
+
   useEffect(() => {
     customAxios.get(`target/findAll`).then(function (response) {
       setDbSelect(response.data.data)
       // dispatch(connectionDB_REQ(dbConnection)); // DB커넥션조회에서 값 디스패치
     })
   }, [])
+
   return (
     <div className='w-100'>
       <div className='pb-8 pb-lg-10'>

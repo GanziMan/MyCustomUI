@@ -2,10 +2,6 @@ import {FC} from 'react'
 import {Field} from 'formik'
 
 const FlowDBCreateConfirm: FC = () => {
-  {
-    /* .map */
-  }
-
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-15'>

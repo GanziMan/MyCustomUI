@@ -1,5 +1,8 @@
+// Libraries
 import {FC, useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
+
+// Components
 import {KTSVG} from '../../../_metronic/helpers'
 import {customAxios} from '../../../apis/utils'
 import {
@@ -12,8 +15,8 @@ import {
 
 const FlowsourcefileCon: FC = () => {
   const dispatch = useDispatch()
-  const [dbConnection, setDbConnection] = useState<any>('')
-  const [dbselect, setDbSelect] = useState<any | string[]>('')
+  const [dbConnection, setDbConnection] = useState<string>('')
+  const [dbselect, setDbSelect] = useState<string[]>([])
 
   const dbConnectionChagnge = (e: any) => {
     setDbConnection(e.target.value)

@@ -102,17 +102,11 @@ type connection_dbid_message = {
 type connection_dbname_message = {
   connection_dbname_message: string
 }
-//여기까지 DB Connetion
-type connection_db = {
-  connection_db: string
-}
+
 type connection_file = {
   connection_file: string
 }
 
-type sourcenamecheck = {
-  sourcenamecheck: string
-}
 type targetnamecheck = {
   targetnamecheck: string
 }
@@ -168,9 +162,6 @@ type sourceid = {
 }
 type targetid = {
   targetid: string
-}
-type filetypelist = {
-  filetypelist: string
 }
 
 type trans_type = {
@@ -360,7 +351,7 @@ export const connectionNAME_DB_Message_REQ = (data: connection_dbname_message) =
 }
 // 여기까지 DB connection
 
-export const connectionDB_REQ = (data: connection_db) => {
+export const connectionDB_REQ = (data: string) => {
   return {
     type: CONNECTION_DB_REQ,
     payload: data,
@@ -372,7 +363,7 @@ export const connectionFILE_REQ = (data: connection_file) => {
     payload: data,
   }
 }
-export const sourcenameCheck_REQ = (data: sourcenamecheck) => {
+export const sourcenameCheck_REQ = (data: string) => {
   return {
     type: SOURCENAME_CHECK_REQ,
     payload: data,
@@ -445,7 +436,7 @@ export const targetID_REQ = (data: targetid) => {
     payload: data,
   }
 }
-export const filetypelist_REQ = (data: filetypelist) => {
+export const filetypelist_REQ = (data: string) => {
   return {
     type: FILE_TYPE_LIST_REQ,
     payload: data,

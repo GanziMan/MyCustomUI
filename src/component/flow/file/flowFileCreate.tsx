@@ -12,19 +12,25 @@ import {customAxios, customAxiosConnection} from '../../../apis/utils'
 
 const FlowFileCreate: FC = () => {
   const dispatch = useDispatch()
-  const [sourceName, setSourceName] = useState<any>()
+
+  const [sourceName, setSourceName] = useState<string>('')
   const [dagCheckMessage, setDagCheckMessage] = useState<string>('')
-  const CronValue = useSelector((state: RootState) => state.cronreducer.cron)
-  const [fileTypeValue, setFileTypeValue] = useState<any>('')
-  const local_path = useSelector((state: RootState) => state.cronreducer.pathvalue)
+  const [fileTypeValue, setFileTypeValue] = useState<string>('')
   const [filenames, setFileNames] = useState<string>('')
+
+  const CronValue = useSelector((state: RootState) => state.cronreducer.cron)
+  const local_path = useSelector((state: RootState) => state.cronreducer.pathvalue)
+
+  const fileNamesArray = filenames.slice(1, -1).split(', ')
+
   const FileTypeChange = (e: any) => {
     setFileTypeValue(e.target.value)
   }
-  const fileNamesArray = filenames.slice(1, -1).split(', ')
+
   const sourceNameChange = (e: any) => {
     setSourceName(e.target.value)
   }
+
   useEffect(() => {
     customAxios
       .get(`flow/duplicateCheck?type=dag_name&value=${sourceName}`)
@@ -46,6 +52,7 @@ const FlowFileCreate: FC = () => {
       dispatch(filetypelist_REQ(fileTypeValue))
     }
   })
+
   return (
     <div className='w-100'>
       <div className='pb-10 pb-lg-15'>
@@ -75,7 +82,7 @@ const FlowFileCreate: FC = () => {
             {dagCheckMessage === '가능' ? (
               <span className='text-success'>{dagCheckMessage} Dag 이름 입니다.</span>
             ) : (
-              sourceName === <span className='text-danger'>{dagCheckMessage} Dag 이름 입니다.</span>
+              <span className='text-danger'>{dagCheckMessage} Dag 이름 입니다.</span>
             )}
           </div>
         </div>

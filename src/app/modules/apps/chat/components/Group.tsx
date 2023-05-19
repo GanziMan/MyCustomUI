@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {FC} from 'react'
+import {FC} from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../../../_metronic/helpers'
-import {Dropdown1, ChatInner} from '../../../../../_metronic/partials'
+import {ChatInner, Dropdown1} from '../../../../../_metronic/partials'
 
 const Group: FC = () => {
   return (
