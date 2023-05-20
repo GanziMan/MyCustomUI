@@ -26,6 +26,7 @@ const FlowDetailTable: React.FC<Props> = ({className, sensor_id}, {flowList}: Fl
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState<boolean>(null)
+  
   useEffect(() => {
     const Runs = async () => {
       try {
