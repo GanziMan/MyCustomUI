@@ -163,7 +163,6 @@ type sourceid = {
 type targetid = {
   targetid: string
 }
-
 type trans_type = {
   trans_type: string
 }
@@ -184,18 +183,8 @@ type sensor_id = {
   sensor_id: string
 }
 
-type dag_run_id = {
-  dag_run_id: string
-}
-
-type task_id = {
-  task_id: string
-}
 type log_flow_id = {
   log_flow_id: string
-}
-type log_try_number = {
-  log_try_number: string
 }
 
 type update_target_name = {
@@ -487,7 +476,7 @@ export const tast_sensorID_REQ = (data: sensor_id) => {
   }
 }
 
-export const log_dagrunid_REQ = (data: dag_run_id) => {
+export const log_dagrunid_REQ = (data: string) => {
   return {
     type: LOG_DAGRUNID_REQ,
     payload: data,
@@ -500,7 +489,7 @@ export const log_sensorid_REQ = (data: sensor_id) => {
     payload: data,
   }
 }
-export const log_taskid_REQ = (data: task_id) => {
+export const log_taskid_REQ = (data: string) => {
   return {
     type: LOG_TASK_REQ,
     payload: data,
@@ -512,7 +501,7 @@ export const log_FLOW_ID = (data: log_flow_id) => {
     payload: data,
   }
 }
-export const log_tryNumber = (data: log_try_number) => {
+export const log_tryNumber = (data: string) => {
   return {
     type: LOG_TRYNUMBER_REQ,
     payload: data,

@@ -1,6 +1,9 @@
+// Libraries
 import {FC, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useLocation} from 'react-router-dom'
+
+// Components
 import {KTSVG} from '../../_metronic/helpers'
 import {StatisticsWidget2} from '../../_metronic/partials/widgets'
 import {customAxiosAirflow} from '../../apis/utils'
@@ -19,16 +22,17 @@ interface RouteState {
     sensor_id: string
   }
 }
+
 const TaskList: FC = () => {
-  const [tasks1, setTasks1] = useState<any>('')
-  const [tasks2, setTasks2] = useState<any>('')
-  const [tasks3, setTasks3] = useState<any>('')
+  const [tasks1, setTasks1] = useState<string>('')
+  const [tasks2, setTasks2] = useState<string>('')
+  const [tasks3, setTasks3] = useState<string>('')
   const [duration1, setDuration1] = useState<string>('')
   const [duration2, setDuration2] = useState<string>('')
   const [duration3, setDuration3] = useState<string>('')
-  const [try_number1, setTry_number1] = useState<any>('')
-  const [try_number2, setTry_number2] = useState<any>('')
-  const [try_number3, setTry_number3] = useState<any>('')
+  const [try_number1, setTry_number1] = useState<string>('')
+  const [try_number2, setTry_number2] = useState<string>('')
+  const [try_number3, setTry_number3] = useState<string>('')
   const [start_Date1, setStart_Date1] = useState<string>('')
   const [start_Date2, setStart_Date2] = useState<string>('')
   const [start_Date3, setStart_Date3] = useState<string>('')
@@ -38,13 +42,15 @@ const TaskList: FC = () => {
   const [task_state1, setState1] = useState<string>('')
   const [task_state2, setState2] = useState<string>('')
   const [task_state3, setState3] = useState<string>('')
-  const [dag_run_id1, setDag_run_id1] = useState<any>('')
-  const [dag_run_id2, setDag_run_id2] = useState<any>('')
-  const [dag_run_id3, setDag_run_id3] = useState<any>('')
+  const [dag_run_id1, setDag_run_id1] = useState<string>('')
+  const [dag_run_id2, setDag_run_id2] = useState<string>('')
+  const [dag_run_id3, setDag_run_id3] = useState<string>('')
+
   const state = useLocation() as RouteState
   const dag_id = state.state?.dag_run_id.replace('+', '%2B')
   const sensor_id = useSelector((state: RootState) => state.cronreducer.sensor_id)
   const dispatch = useDispatch()
+
   useEffect(() => {
     customAxiosAirflow
       .get(`get?dags=dags/${sensor_id}/dagRuns/${dag_id}/taskInstances`)

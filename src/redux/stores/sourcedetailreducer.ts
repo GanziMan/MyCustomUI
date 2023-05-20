@@ -12,7 +12,6 @@ const initialState: Result = {
 const sourcedetailreducer = (state: Result = initialState, action: ScoreAction) => {
   switch (action.type) {
     case SOURCE_DETAIL_REQ:
-      console.log(state)
       return {
         ...state,
         state: action.payload,
