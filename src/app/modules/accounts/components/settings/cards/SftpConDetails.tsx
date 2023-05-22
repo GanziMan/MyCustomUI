@@ -62,9 +62,6 @@ const SftpCon: React.FC = () => {
         },
         axiosConfig
       )
-      .then(function (response) {
-        console.log(response.data)
-      })
       .catch(function (error) {
         console.error(error)
       })

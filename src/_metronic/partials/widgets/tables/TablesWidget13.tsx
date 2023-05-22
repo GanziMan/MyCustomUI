@@ -1,34 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { customAxios } from '../../../../apis/utils'
+import React, {useEffect, useState} from 'react'
+import {customAxios} from '../../../../apis/utils'
 import {KTSVG} from '../../../helpers'
 
 type Props = {
   className: string
 }
-interface Connection{
-  connection_name:string;
-  connection_id:string;
-  connection_type:string;
-  login:string;
-  host:string;
-  port:string;
-  id:string;
+interface Connection {
+  connection_name: string
+  connection_id: string
+  connection_type: string
+  login: string
+  host: string
+  port: string
+  id: string
 }
-interface ConnectionProps{
-  ConnectionList:Connection[]
-} 
-const TablesWidget13: React.FC<Props> = ({className}, {ConnectionList}:ConnectionProps) => {
-  const [data, setData] = useState([]);
+interface ConnectionProps {
+  ConnectionList: Connection[]
+}
+const TablesWidget13: React.FC<Props> = ({className}, {ConnectionList}: ConnectionProps) => {
+  const [data, setData] = useState([])
   useEffect(() => {
-    customAxios.get(`connection/find-sftp?type=SFTP`)
-        .then(function (response) {
-            console.log(response.data.data);
-            setData(response.data.data);
-        }).catch(function (error) {
-            console.error(error);
-        });
-}, []);
-ConnectionList = data;
+    customAxios
+      .get(`connection/find-sftp?type=SFTP`)
+      .then(function (response) {
+        setData(response.data.data)
+      })
+      .catch(function (error) {
+        console.error(error)
+      })
+  }, [])
+  ConnectionList = data
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
@@ -164,10 +165,7 @@ ConnectionList = data;
                 <th className='min-w-140px'>Connection_ID</th>
                 <th className='min-w-120px'>PORT</th>
                 <th className='min-w-120px'>HOST</th>
-                
-            
-                
-                
+
                 <th className='min-w-120px'>LOGIN</th>
                 <th className='min-w-120px'>Connection_TYPE</th>
                 {/* <th className='min-w-100px text-end'></th> */}
@@ -176,63 +174,89 @@ ConnectionList = data;
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-
-              {
-                ConnectionList && ConnectionList.map((connection) => (
+              {ConnectionList &&
+                ConnectionList.map((connection) => (
                   <>
-                      <tr key={connection.id}>
-                <td>
-                  <div className='form-check form-check-sm form-check-custom form-check-solid'>
-                    <input className='form-check-input widget-13-check' type='checkbox' value='1' />
-                  </div>
-                </td>
-                <td>
-                  <a href='#!' className='text-dark fw-bold text-hover-primary fs-6'>
-                    {connection.connection_name}
-                  </a>
-                </td>
-                <td>
-                  <a href='#!' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
-                    {connection.connection_id}
-                  </a>
-                  </td>
-                <td>
-                  <a href='#!' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
-                    {connection.port}
-                  </a>
-                    </td>
-                <td>
-                  <a href='#!' className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'>
-                    {connection.host}
-                  </a>
-                  </td>
-                <td className='text-dark fw-bold text-hover-primary fs-6'>{connection.login}</td>
-                <td>
-                  <span className='badge badge-light-success'> {connection.connection_type}</span>
-                </td>
-                <td className='text-end'>
-                  <a
-                    href='#!'
-                    className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-                  >
-                    <KTSVG path='/media/icons/duotune/general/gen019.svg' className='svg-icon-3' />
-                  </a>
-                  <a
-                    href='#!'
-                    className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-                  >
-                    <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-3' />
-                  </a>
-                  <a href='#!' className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'>
-                    <KTSVG path='/media/icons/duotune/general/gen027.svg' className='svg-icon-3' />
-                  </a>
-                </td>
-              </tr>
+                    <tr key={connection.id}>
+                      <td>
+                        <div className='form-check form-check-sm form-check-custom form-check-solid'>
+                          <input
+                            className='form-check-input widget-13-check'
+                            type='checkbox'
+                            value='1'
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <a href='#!' className='text-dark fw-bold text-hover-primary fs-6'>
+                          {connection.connection_name}
+                        </a>
+                      </td>
+                      <td>
+                        <a
+                          href='#!'
+                          className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'
+                        >
+                          {connection.connection_id}
+                        </a>
+                      </td>
+                      <td>
+                        <a
+                          href='#!'
+                          className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'
+                        >
+                          {connection.port}
+                        </a>
+                      </td>
+                      <td>
+                        <a
+                          href='#!'
+                          className='text-dark fw-bold text-hover-primary d-block mb-1 fs-6'
+                        >
+                          {connection.host}
+                        </a>
+                      </td>
+                      <td className='text-dark fw-bold text-hover-primary fs-6'>
+                        {connection.login}
+                      </td>
+                      <td>
+                        <span className='badge badge-light-success'>
+                          {' '}
+                          {connection.connection_type}
+                        </span>
+                      </td>
+                      <td className='text-end'>
+                        <a
+                          href='#!'
+                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                        >
+                          <KTSVG
+                            path='/media/icons/duotune/general/gen019.svg'
+                            className='svg-icon-3'
+                          />
+                        </a>
+                        <a
+                          href='#!'
+                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                        >
+                          <KTSVG
+                            path='/media/icons/duotune/art/art005.svg'
+                            className='svg-icon-3'
+                          />
+                        </a>
+                        <a
+                          href='#!'
+                          className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+                        >
+                          <KTSVG
+                            path='/media/icons/duotune/general/gen027.svg'
+                            className='svg-icon-3'
+                          />
+                        </a>
+                      </td>
+                    </tr>
                   </>
-                ))
-              }
-              
-             
+                ))}
             </tbody>
             {/* end::Table body */}
           </table>
