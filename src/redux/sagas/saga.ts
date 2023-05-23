@@ -22,7 +22,6 @@ function CreatorDags(params: any) {
   const conf = {params}
   const dags = 'dags/Dag_Creater/dagRuns'
   const json = {dags, conf}
-  console.log(json)
   const result = axios
     .post(Base_URL + 'post', json, axiosConfig)
     .then(function (response) {
@@ -41,7 +40,6 @@ function DagUpdate(is_paused: any) {
   axios
     .patch(Base_URL + 'patch', json, axiosConfig)
     .then(function (response) {
-      console.log(response)
       //  dispatch
       return response.data
     })
@@ -96,7 +94,6 @@ function DagRuns(data: any) {
   axios
     .post(Base_URL + 'post', {dags}, axiosConfig)
     .then(function (response) {
-      console.log(response.data)
       return response.data
     })
     .catch(function (error) {
@@ -112,8 +109,8 @@ function* testSaga(action: any): Generator<StrictEffect, any, any> {
     // console.log(data.data.data.body.dag_run_id.replace("+","%2B"));
     yield put({type: TEST_ASYNC_RES, payload: data.data.data.body.dag_run_id.replace('+', '%2B')})
     // yield put({type:TEST_ASYNC_RES,payload:data})
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    console.log(err)
   }
 }
 
@@ -132,9 +129,9 @@ function* PostRunSaga(action: any): Generator<any, any, any> {
   try {
     yield call(DagRunUpdate, action.payload)
     const run = yield call(DagRuns, action.payload)
-
-    console.log(run)
-  } catch (e) {}
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 function* watchAlert() {

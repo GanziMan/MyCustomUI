@@ -55,7 +55,6 @@ const TaskList: FC = () => {
     customAxiosAirflow
       .get(`get?dags=dags/${sensor_id}/dagRuns/${dag_id}/taskInstances`)
       .then(function (response) {
-        console.log(response)
         setTasks1(response.data.data.body.task_instances[0].task_id)
         setTasks2(response.data.data.body.task_instances[1].task_id)
         setTasks3(response.data.data.body.task_instances[2].task_id)

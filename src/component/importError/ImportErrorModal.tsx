@@ -18,7 +18,6 @@ function ImportErrorModal() {
       await customAxiosAirflow
         .get(`get?dags=importErrors/${import_error_id}`)
         .then(function (response) {
-          console.log(response)
           setLogContent(response.data.data.body.stack_trace)
         })
     }

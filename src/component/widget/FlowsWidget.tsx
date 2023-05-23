@@ -50,7 +50,6 @@ const FlowsWidget: React.FC<Props> = ({className, color}, {flowList}: FlowProps)
     dispatch(flowwidget_id_req(id))
     dispatch(flowwidget_sensorid_req(sensor_id))
     e.preventDefault()
-    console.log(id, sensor_id)
   }
   return (
     <div className={`card ${className}`}>

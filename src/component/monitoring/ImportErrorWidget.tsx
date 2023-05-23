@@ -17,7 +17,6 @@ const ImportErrorWidget: React.FC<Props> = ({className}) => {
   useEffect(() => {
     customAxiosAirflow('get?dags=importErrors')
       .then(function (response) {
-        console.log(response)
         setData(response.data.data.body.import_errors)
       })
       .catch(function (error) {

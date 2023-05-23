@@ -33,7 +33,6 @@ const FileHorizon: FC = () => {
   const loadStepper = () => {
     stepper.current = StepperComponent.createInsance(stepperRef.current as HTMLDivElement)
   }
-  console.log(pathvalue)
   const prevStep = () => {
     if (!stepper.current) {
       return

@@ -114,8 +114,6 @@ const TFileHorizon: FC = () => {
         })
         .then(function () {
           customAxios.post('connection/save', initValues).then(function (response) {
-            console.log(initValues)
-            console.log(response)
             navigate('/dashboard')
             toast.success(`SFTP ${connection_name} 생성 완료`)
           })

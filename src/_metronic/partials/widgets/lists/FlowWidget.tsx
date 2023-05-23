@@ -35,7 +35,6 @@ const FlowWidget: React.FC<Props> = ({className, items = 6}, {dagList}: DagProps
       .get('http://localhost:8080/managerUi/jpa/target/findAll', axiosConfig)
       .then(function (response) {
         setData(response.data.data.body.dags)
-        console.log(response.data.data.body.dags)
       })
       .catch(function (error) {
         console.error(error)

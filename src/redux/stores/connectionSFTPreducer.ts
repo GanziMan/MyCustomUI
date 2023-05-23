@@ -12,7 +12,6 @@ const initialState: Result = {
 const connectionSFTPreducer = (state: Result = initialState, action: ScoreAction) => {
   switch (action.type) {
     case SFTPCONNECTION_REQ:
-      console.log(action.payload)
       return {
         ...state,
         state: action.payload,

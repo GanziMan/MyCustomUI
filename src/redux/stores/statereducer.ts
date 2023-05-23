@@ -21,7 +21,6 @@ const StateReducer = (state: Result = initialState, action: StateAction) => {
     case STATE_SUCCESS_REQ:
       return {}
     case STATE_SUCCESS_RES:
-      console.log(action.payload)
       return {
         ...state,
         success: action.payload,
@@ -29,7 +28,6 @@ const StateReducer = (state: Result = initialState, action: StateAction) => {
     case STATE_FAILED_REQ:
       return {}
     case STATE_FAILED_RES:
-      console.log(action.payload)
       return {
         ...state,
         failed: action.payload,

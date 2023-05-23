@@ -28,14 +28,9 @@ export function TargetDetails() {
 
   const Delete = () => {
     if (window.confirm('정말 삭제합니까?')) {
-      customAxios
-        .delete(`target/delete?id=${id}`)
-        .then(function (response) {
-          console.log(response)
-        })
-        .catch(function (error) {
-          console.error(error)
-        })
+      customAxios.delete(`target/delete?id=${id}`).catch(function (error) {
+        console.error(error)
+      })
       navigate('/dashboard')
       toast.info(`` + ' 타겟 삭제완료')
     } else {

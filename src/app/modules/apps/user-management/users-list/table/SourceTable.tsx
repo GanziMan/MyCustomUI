@@ -8,8 +8,8 @@ import {User} from '../core/_models'
 import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {UsersListPagination} from '../components/pagination/UsersListPagination'
 import {KTCardBody} from '../../../../../../_metronic/helpers'
-import { useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import {useLocation} from 'react-router-dom'
+import {useEffect} from 'react'
 import axios from 'axios'
 
 const SourceTable = () => {
@@ -20,24 +20,22 @@ const SourceTable = () => {
   const {getTableProps, getTableBodyProps, headers, rows, prepareRow} = useTable({
     columns,
     data,
-  });
-  const state = useLocation().state;
-  console.log(state);
-  axios.defaults.withCredentials = true;
+  })
+  const state = useLocation().state
+  axios.defaults.withCredentials = true
   const axiosConfig = {
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
+      'Content-Type': 'application/json; charset=UTF-8',
     },
-    withCredentials: true
+    withCredentials: true,
   }
-  useEffect(()=>{
-    axios.get(`http://localhost:8080/api/v1/get?dags=dags/${state}/dagRuns`,axiosConfig)
-   .then(function (response) {
-    console.log(response.data.data.body.dag_runs);
-  }).catch(function (error) {
-    console.error(error);
-  });
-  },[])
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/v1/get?dags=dags/${state}/dagRuns`, axiosConfig)
+      .catch(function (error) {
+        console.error(error)
+      })
+  }, [])
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>

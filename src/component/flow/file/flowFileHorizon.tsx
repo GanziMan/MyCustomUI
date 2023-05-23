@@ -126,7 +126,6 @@ const FlowFileHorizon: FC = () => {
     try {
       const response: any = await customAxiosAirflow.post(`post`, {dags, conf: confFile})
       toast.info(`${dag_name} DAG 생성 중`)
-      console.log(response)
       setLoading(true)
       await new Promise((resolve) => setTimeout(resolve, 8000))
       setLoading(false)

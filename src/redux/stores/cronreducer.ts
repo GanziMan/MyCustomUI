@@ -164,7 +164,6 @@ const cronreducer = (state: Result = initialState, action: ScoreAction) => {
         cron: action.payload,
       }
     case PATH_MESSAGE_REQ:
-      console.log(action.payload)
       return {
         ...state,
         message: action.payload,
