@@ -32,7 +32,7 @@ const SourceWidget: React.FC<Props> = ({ items = 6 }, { placeList }: PlacesProps
   useEffect(() => {
     customAxios.get("source/findAll")
       .then(function (response) {
-        console.log(response.data.data);
+  
         setData(response.data.data);
       }).catch(function (error) {
         console.error(error);
